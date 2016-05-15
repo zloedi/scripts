@@ -232,3 +232,5 @@ OBJS=\\
     file = open( makefile, 'w' )
     file.write( out )
     file.close()
+    print "Created Makefile"
+    Cmd( "make clean" );
