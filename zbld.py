@@ -2,11 +2,27 @@ import sys
 import subprocess
 import platform
 
+def Cmd( cmd ):
+	#print( cmd )
+	subprocess.Popen( cmd, shell = True ).communicate()
+
+def Is64bitOS():
+    return platform.architecture()[0] == "64bit"
+
 def IsWindows():
     return platform.system()[0:9] == "CYGWIN_NT"
 
 def NormalizePath( path ):
     return path
+
+def HostCopyProperSDL( m32 = False ):
+    # this assumes 64bit mingw. assumes too much
+    Cmd( "rm ./SDL2.dll" )
+    if m32:
+        Cmd( "cp ../zhost/3rdparty/SDL2/i686-w64-mingw32/bin/SDL2.dll ./" )
+    else:
+        Cmd( "cp ../zhost/3rdparty/SDL2/x86_64-w64-mingw32/bin/SDL2.dll ./" )
+    Cmd( "chmod +x ./SDL2.dll" )
 
 def GetHostLflags( m32 = False ):
     lflags = ""
@@ -39,7 +55,7 @@ def GetHostCflags():
         cflags += " `sdl2-config --cflags` `freetype-config --cflags`"
     return cflags
 
-def CPPCompiler( m32 = False ):
+def CPPCompiler( m32 ):
     if IsWindows():
         if m32: 
             # 32 bit target
@@ -53,7 +69,7 @@ def CPPCompiler( m32 = False ):
     return cc
 
 # TODO: pick proper linker/compiler for -m32 and -m64
-def CCompiler( m32 = False ):
+def CCompiler( m32 ):
     if IsWindows():
         if m32:
             # 32 bit target
@@ -79,8 +95,8 @@ def EmitLink( linker, target, targetDir, linkerFlags ):
 	@echo Copying $@ to \"""" + targetDir + """\" ; cp $@ \"""" + targetDir + """\"
 """
 
-def CCObjExt( obj ):
-    cc = CCompiler()
+def CCObjExt( obj, m32 ):
+    cc = CCompiler( m32 )
     o = obj
     ext = ".c"
 
@@ -93,7 +109,7 @@ def CCObjExt( obj ):
 
     return cc, o, ext
 
-def EmitObjsAndDeps( dir, objs, appCFlags, fileUID ):
+def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
     out = ""
     for obj in objs:
         cflags = appCFlags + " -DFILE_UID=" + str( fileUID )
@@ -101,8 +117,8 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID ):
         cflags += " -Wall"
         cflags += " -Wconversion -Wformat=2 -Wdouble-promotion"
 
-        cc, o, ext = CCObjExt( obj )
-        if cc == CCompiler():
+        cc, o, ext = CCObjExt( obj, m32 )
+        if cc == CCompiler( m32 ):
             cflags += " -std=gnu99"
             cflags += " -Woverride-init -Wold-style-declaration -Wmissing-parameter-type"
         elif cc == CPPCompiler():
@@ -123,7 +139,8 @@ def GenerateMakefile( codeDir,
                         appLinkerFlags, 
                         targetDir, 
                         targetName, 
-                        outputDir 
+                        outputDir,
+                        m32 = False
                     ):
     makefile      = outputDir + 'Makefile'
 
@@ -187,13 +204,13 @@ clean:
 
 OBJS=\\
 '''
-    linker = CCompiler()
+    linker = CCompiler( m32 )
 
     for lst in appObjs:
         for obj in lst[1]:
-            cc, o, ext = CCObjExt( obj )
-            if cc == CPPCompiler():
-                linker = CPPCompiler()
+            cc, o, ext = CCObjExt( obj, m32 )
+            if cc == CPPCompiler( m32 ):
+                linker = CPPCompiler( m32 )
             out += '\t$(OUT_DIR)' + o + '.o\\\n'
 
     out += "\n"
@@ -209,7 +226,7 @@ OBJS=\\
     fileUID = 0
 
     for lst in appObjs:
-        fileUID, res = EmitObjsAndDeps( lst[0], lst[1], appCFlags, fileUID )
+        fileUID, res = EmitObjsAndDeps( lst[0], lst[1], appCFlags, fileUID, m32 )
         out += res
 
     file = open( makefile, 'w' )
