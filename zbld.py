@@ -24,7 +24,7 @@ def HostCopyProperSDL( m32 = False ):
         Cmd( "cp ../zhost/3rdparty/SDL2/x86_64-w64-mingw32/bin/SDL2.dll ./" )
     Cmd( "chmod +x ./SDL2.dll" )
 
-def GetHostLflags( m32 = False ):
+def GetHostLflags( m32 ):
     lflags = ""
     if IsWindows():
         libsDir = "3rdparty/"

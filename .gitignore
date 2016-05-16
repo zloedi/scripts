@@ -1,1 +1,7 @@
+*.swp
+*.swo
+*.exe
+*.dll
 *.pyc
+tags
+Makefile
