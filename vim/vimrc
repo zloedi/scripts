@@ -57,7 +57,7 @@ elseif s:projectName == "chaos_client"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalSVNDirs = "\"../Scenes\"" " \"../Resources_Raw\" \"../Resources\""
+    let s:additionalSVNDirs = "\"../Scenes\" \"../Resources_Raw\" \"../Resources\""
 elseif s:projectName == "chaos_server"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
