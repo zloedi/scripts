@@ -146,7 +146,7 @@ endfunction
 
 function! FindInFiles_f( ... )
 	let cmdPref = "grep -riIFe \""
-	let cmdSuf = " --exclude=*.meta --exclude-dir=.svn --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
+	let cmdSuf = " --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
 	if a:0 == 1 
 		execute cmdPref . a:1 . "\" . " . s:additionalSVNDirs . cmdSuf
 	elseif a:0 == 2 
