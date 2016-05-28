@@ -115,7 +115,7 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
         cflags = appCFlags + " -DFILE_UID=" + str( fileUID )
 
         cflags += " -Wall"
-        cflags += " -Wconversion -Wformat=2 -Wdouble-promotion"
+        cflags += " -Werror -Wformat=2"
 
         cc, o, ext = CCObjExt( obj, m32 )
         if cc == CCompiler( m32 ):
