@@ -2,8 +2,7 @@ import sys
 import subprocess
 import platform
 
-HOST_DIR = "../zhost/"
-LIBS_DIR = HOST_DIR + "3rdparty/"
+LIBS_DIR = "3rdparty/"
 
 def Cmd( cmd ):
 	#print( cmd )
@@ -18,23 +17,23 @@ def IsWindows():
 def NormalizePath( path ):
     return path
 
-def HostCopyProperSDL( m32 = False ):
+def HostCopyProperSDL( hostDir, m32 = False ):
     # this assumes 64bit mingw. assumes too much
     Cmd( "rm ./SDL2.dll" )
     if m32:
-        Cmd( "cp " + LIBS_DIR + "SDL2/i686-w64-mingw32/bin/SDL2.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2/i686-w64-mingw32/bin/SDL2.dll ./" )
     else:
-        Cmd( "cp " + LIBS_DIR + "SDL2/x86_64-w64-mingw32/bin/SDL2.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2/x86_64-w64-mingw32/bin/SDL2.dll ./" )
     Cmd( "chmod +x ./SDL2.dll" )
 
-def GetHostLflags( m32 ):
+def GetHostLflags( hostDir, m32 = False ):
     lflags = ""
     if IsWindows():
-        #lflags += " -L" + LIBS_DIR + "freetype/lib"
+        #lflags += " -L" + hostDir + LIBS_DIR + "freetype/lib"
         if m32:
-            lflags += " -L" + LIBS_DIR + "SDL2/lib/x86"
+            lflags += " -L" + hostDir + LIBS_DIR + "SDL2/lib/x86"
         else:
-            lflags += " -L" + LIBS_DIR + "SDL2/lib/x64"
+            lflags += " -L" + hostDir + LIBS_DIR + "SDL2/lib/x64"
         #lflags += " -lfreetype"
         # keep the order here
         #lflags += " -lmingw32 -lSDL2main -lSDL2 -mwindows"
@@ -46,12 +45,12 @@ def GetHostLflags( m32 ):
         lflags += " -lfreetype"
     return lflags
 
-def GetHostCflags():
-    cflags = " -I" + HOST_DIR
-    cflags += " -I" + LIBS_DIR
+def GetHostCflags( hostDir ):
+    cflags = " -I" + hostDir
+    cflags += " -I" + hostDir + LIBS_DIR
     if IsWindows():
-		#cflags += " -I" + LIBS_DIR + "freetype/include/freetype2/freetype"
-        cflags += " -I" + LIBS_DIR + "SDL2/include"
+		#cflags += " -I" + hostDir + LIBS_DIR + "freetype/include/freetype2/freetype"
+        cflags += " -I" + hostDir + LIBS_DIR + "SDL2/include"
     else:
         cflags += " `sdl2-config --cflags` `freetype-config --cflags`"
     return cflags
@@ -152,14 +151,21 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
         fileUID += 1
     return fileUID, out
 
-def Configure( codeDir, 
-               appObjs, 
-               appCFlags, 
-               appLinkerFlags, 
-               targetDir, 
-               targetName, 
-               outputDir,
+def Configure( appObjs, 
+               codeDir = "./", 
+               appCFlags = "", 
+               appLinkerFlags = "",
+               targetDir = "./", 
+               targetName = "zhost", 
+               outputDir = "./",
+               useHost = True,
+               hostDir = "../zhost/",
                m32 = False ):
+    if useHost:
+        appObjs = [( hostDir, GetHostObjs() )] + appObjs
+        appCFlags += GetHostCflags( hostDir ) 
+        appLinkerFlags += GetHostLflags( hostDir )
+
     makefile      = outputDir + 'Makefile'
 
     debugDir      = codeDir + 'Debug/'
@@ -255,7 +261,7 @@ OBJS=\\
     file.close()
     print "Created Makefile"
 
-def PostConfigure( m32, useSDL ):
+def PostConfigure( hostDir = "../zhost/", m32 = False, useSDL = True ):
     Cmd( "make clean" );
     if useSDL and IsWindows():
-        HostCopyProperSDL( m32 )
+        HostCopyProperSDL( hostDir, m32 )
