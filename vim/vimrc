@@ -244,11 +244,11 @@ elseif s:projectName == "pcsx2"
     endif
 elseif s:projectName == "chaos_client"
 	if s:hostname == "Julian-PC"
-		command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-		"command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
-		"command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos/branches/ChaosUnity5/ChaosUnity/Assets/Scripts", "." )
-		"command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos_build/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-		"command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos_build/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
+		command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+		"command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
+		"command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosUnity5/ChaosUnity/Assets/Scripts", "." )
+		"command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+		"command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
 	elseif s:hostname == "Koko"
 		command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
 	endif

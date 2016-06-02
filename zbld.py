@@ -2,6 +2,9 @@ import sys
 import subprocess
 import platform
 
+HOST_DIR = "../zhost/"
+LIBS_DIR = HOST_DIR + "3rdparty/"
+
 def Cmd( cmd ):
 	#print( cmd )
 	subprocess.Popen( cmd, shell = True ).communicate()
@@ -19,20 +22,19 @@ def HostCopyProperSDL( m32 = False ):
     # this assumes 64bit mingw. assumes too much
     Cmd( "rm ./SDL2.dll" )
     if m32:
-        Cmd( "cp ../zhost/3rdparty/SDL2/i686-w64-mingw32/bin/SDL2.dll ./" )
+        Cmd( "cp " + LIBS_DIR + "SDL2/i686-w64-mingw32/bin/SDL2.dll ./" )
     else:
-        Cmd( "cp ../zhost/3rdparty/SDL2/x86_64-w64-mingw32/bin/SDL2.dll ./" )
+        Cmd( "cp " + LIBS_DIR + "SDL2/x86_64-w64-mingw32/bin/SDL2.dll ./" )
     Cmd( "chmod +x ./SDL2.dll" )
 
 def GetHostLflags( m32 ):
     lflags = ""
     if IsWindows():
-        libsDir = "3rdparty/"
-        #lflags += " -L" + libsDir + "freetype/lib"
+        #lflags += " -L" + LIBS_DIR + "freetype/lib"
         if m32:
-            lflags += " -L" + libsDir + "SDL2/lib/x86"
+            lflags += " -L" + LIBS_DIR + "SDL2/lib/x86"
         else:
-            lflags += " -L" + libsDir + "SDL2/lib/x64"
+            lflags += " -L" + LIBS_DIR + "SDL2/lib/x64"
         #lflags += " -lfreetype"
         # keep the order here
         #lflags += " -lmingw32 -lSDL2main -lSDL2 -mwindows"
@@ -45,15 +47,32 @@ def GetHostLflags( m32 ):
     return lflags
 
 def GetHostCflags():
-    cflags = ""
+    cflags = " -I" + HOST_DIR
+    cflags += " -I" + LIBS_DIR
     if IsWindows():
-		libsDir = "3rdparty/"
-		#cflags += " -I" + libsDir + "freetype/include/freetype2/freetype"
-		cflags += " -I" + libsDir + "SDL2/include"
-		cflags += " -I 3rdparty"
+		#cflags += " -I" + LIBS_DIR + "freetype/include/freetype2/freetype"
+        cflags += " -I" + LIBS_DIR + "SDL2/include"
     else:
         cflags += " `sdl2-config --cflags` `freetype-config --cflags`"
     return cflags
+
+def GetHostObjs():
+    return [
+        "allocator",
+        "cmd",
+        "com_files",
+        "com_str",
+        "com_tokens",
+        "con_draw",
+        "con_font",
+        "con_log",
+        "con_main",
+        "con_prompt",
+        "r_sdl",
+        "sys",
+        "var",
+        "util",
+    ]
 
 def CPPCompiler( m32 ):
     if IsWindows():
@@ -133,15 +152,14 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
         fileUID += 1
     return fileUID, out
 
-def GenerateMakefile( codeDir, 
-                        appObjs, 
-                        appCFlags, 
-                        appLinkerFlags, 
-                        targetDir, 
-                        targetName, 
-                        outputDir,
-                        m32 = False
-                    ):
+def Configure( codeDir, 
+               appObjs, 
+               appCFlags, 
+               appLinkerFlags, 
+               targetDir, 
+               targetName, 
+               outputDir,
+               m32 = False ):
     makefile      = outputDir + 'Makefile'
 
     debugDir      = codeDir + 'Debug/'
@@ -199,6 +217,9 @@ clean:
 	@rm "''' + releaseTarget + '''" -vf
 	@rm "''' + profileDir + '''"*.o -vf
 	@rm "''' + profileTarget + '''" -vf
+	@rm "''' + targetName + '''_dbg.exe" -vf
+	@rm "''' + targetName + '''_prof.exe" -vf
+	@rm "''' + targetName + '''.exe" -vf
 
 #####################################################################################
 
@@ -233,4 +254,8 @@ OBJS=\\
     file.write( out )
     file.close()
     print "Created Makefile"
+
+def PostConfigure( m32, useSDL ):
     Cmd( "make clean" );
+    if useSDL and IsWindows():
+        HostCopyProperSDL( m32 )
