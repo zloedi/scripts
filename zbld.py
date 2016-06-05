@@ -43,6 +43,7 @@ def GetHostLflags( hostDir, m32 = False ):
         lflags += " `sdl2-config --libs`"
         lflags += " -lGL"
         lflags += " -lfreetype"
+        lflags += " -lm"
     return lflags
 
 def GetHostCflags( hostDir ):
@@ -223,6 +224,9 @@ clean:
 	@rm "''' + releaseTarget + '''" -vf
 	@rm "''' + profileDir + '''"*.o -vf
 	@rm "''' + profileTarget + '''" -vf
+	@rm "''' + targetName + '''_dbg" -vf
+	@rm "''' + targetName + '''_prof" -vf
+	@rm "''' + targetName + '''" -vf
 	@rm "''' + targetName + '''_dbg.exe" -vf
 	@rm "''' + targetName + '''_prof.exe" -vf
 	@rm "''' + targetName + '''.exe" -vf
