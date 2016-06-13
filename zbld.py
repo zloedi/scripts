@@ -57,7 +57,7 @@ def GetHostCflags( hostDir ):
     return cflags
 
 def GetHostObjs():
-    return [
+    objs = [
         "allocator",
         "cmd",
         "com_files",
@@ -69,10 +69,15 @@ def GetHostObjs():
         "con_main",
         "con_prompt",
         "r_sdl",
-        "sys",
+        "sys_common",
         "var",
         "util",
     ]
+    if IsWindows():
+        objs.append( "sys_windows" )
+    else:
+        objs.append( "sys_unix" )
+    return objs
 
 def CPPCompiler( m32 ):
     if IsWindows():
