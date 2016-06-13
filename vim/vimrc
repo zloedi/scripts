@@ -21,6 +21,7 @@ set errorformat&
 set ruler
 set novisualbell
 set t_vb=
+set ff=unix
 
 "disable autocommenting on new line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -37,12 +38,6 @@ let s:haveReadSession = 0
 "let s:user = "stoiko"
 
 let s:projectName = $ZPROJ
-"let s:projectName = "pcsx2"
-"let s:projectName = "chaos_client"
-"let s:projectName = "chaos_server"
-"let s:projectName = "zcom_client"
-"let s:projectName = "skeleton_sdl2_ogl"
-"let s:projectName = "zps2"
 
 if s:projectName == "zhost"
     set expandtab
@@ -55,9 +50,9 @@ elseif s:projectName == "bgg"
     let s:appToRun = "bgg_dbg"
     let s:additionalCTagsDirs = "../zhost"
 elseif s:projectName == "zps2"
-    "set expandtab
-    "let s:homeDir = "~/work/private/zps2"
-    "let s:additionalSVNDirs = "../scripts ../docs"
+    set expandtab
+    let s:homeDir = "~/work/github/zps2"
+    let s:additionalCTagsDirs = "../zhost"
 elseif s:projectName == "zcom_client"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
@@ -122,7 +117,7 @@ function! Build_f( ... )
         execute "!ctags -R " . a:2
     elseif s:projectName == "chaos_server"
         execute "!ctags -R " . a:2 . s:additionalSVNDirs
-    elseif s:projectName == "pcsx2" || s:projectName == "zps2"
+    elseif s:projectName == "pcsx2"
         execute "!ctags -R " . a:2 . "/" . " " . s:additionalSVNDirs
     elseif s:projectName != ""
         execute "!ctags -R " . a:2 . "/" . " " . s:additionalCTagsDirs
