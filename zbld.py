@@ -197,7 +197,7 @@ debug_app:
 	@mkdir ''' + targetDir + ''' -p
 	@mkdir ''' + debugDir + ''' -p
 	@echo ----------------- Building Debug --------------- ; \\
-	$(MAKE) -f "''' + makefile + '" "' + debugTarget + '" ' +\
+	$(MAKE) -j4 -f "''' + makefile + '" "' + debugTarget + '" ' +\
         'OUT_DIR="' + debugDir + '" ' +\
         'GLOBAL_CFLAGS="' + globalDebugFlags + '" ' +\
         '''
@@ -206,7 +206,7 @@ release_app:
 	@mkdir ''' + targetDir + ''' -p
 	@mkdir ''' + releaseDir + ''' -p
 	@echo ----------------- Building Release --------------- ; \\
-	$(MAKE) -f ''' + makefile + ' "' + releaseTarget + '" ' +\
+	$(MAKE) -j4 -f ''' + makefile + ' "' + releaseTarget + '" ' +\
         'OUT_DIR="' + releaseDir + '" ' +\
         'GLOBAL_CFLAGS="' + globalReleaseFlags + '" ' +\
         '''
@@ -215,7 +215,7 @@ profile_app:
 	@mkdir ''' + targetDir + ''' -p
 	@mkdir ''' + profileDir + ''' -p
 	@echo ----------------- Building Profile --------------- ; \\
-	$(MAKE) -f ''' + makefile + ' "' + profileTarget + '" ' +\
+	$(MAKE) -j4 -f ''' + makefile + ' "' + profileTarget + '" ' +\
         'OUT_DIR="' + profileDir + '" ' +\
         'GLOBAL_CFLAGS="' + globalProfileFlags + '" ' +\
         '''
