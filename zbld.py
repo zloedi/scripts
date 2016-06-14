@@ -68,6 +68,8 @@ def GetHostObjs():
         "con_log",
         "con_main",
         "con_prompt",
+        "events",
+        "input",
         "r_sdl",
         "sys_common",
         "var",
