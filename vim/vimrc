@@ -259,7 +259,7 @@ elseif s:projectName == "chaos_server"
 elseif s:projectName != ""
     command! -nargs=0 Build call Build_f( s:homeDir, "." )
     command! -nargs=0 Run call Run_f( s:homeDir, ".", s:appToRun )
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, s:additionalCTagsDirs )
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
 else
     command! Build echo "Build: did you specify $ZPROJ? If yes, enable the build configuration for '" . s:projectName . "' in vimrc first"
 endif
