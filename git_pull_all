@@ -1,0 +1,4 @@
+cd ../scripts ; git pull
+cd ../bgg ; git pull
+cd ../zhost ; git pull
+cd ../zps2 ; git pull
