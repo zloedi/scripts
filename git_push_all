@@ -1,0 +1,4 @@
+cd ../scripts ; git push
+cd ../bgg ; git push
+cd ../zhost ; git push
+cd ../zps2 ; git push
