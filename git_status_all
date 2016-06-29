@@ -1,4 +1,4 @@
-cd ../scripts ; git status
+cd ../scrip ts ; git status
 cd ../zhost ; git status
 cd ../zps2 ; git status
 cd ../bgg ; git status

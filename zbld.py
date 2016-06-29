@@ -61,6 +61,8 @@ def GetHostObjs():
         "allocator",
         "cmd",
         "com_files",
+        "com_random",
+        "com_raster",
         "com_str",
         "com_tokens",
         "con_draw",
@@ -72,8 +74,8 @@ def GetHostObjs():
         "input",
         "r_sdl",
         "sys_common",
-        "var",
         "util",
+        "var",
     ]
     if IsWindows():
         objs.append( "sys_windows" )
