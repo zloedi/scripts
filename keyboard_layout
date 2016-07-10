@@ -1,0 +1,5 @@
+#!/bin/bash
+setxkbmap -layout us,bg
+setxkbmap -variant ,phonetic
+setxkbmap -option 'grp:shift_toggle'
+setxkbmap -option 'grp_led:scroll'
