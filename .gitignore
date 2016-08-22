@@ -3,6 +3,8 @@
 *.exe
 *.dll
 *.pyc
+*.log
+*.log.full
 tags
 Makefile
 .netrwhist
