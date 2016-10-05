@@ -227,11 +227,11 @@ elseif 0
     map <F5> :Run "~/work/ioquake3/build/release-linux-i386/ioquake3.i386" <CR>
 elseif s:projectName == "zcom_client"
     if s:hostname == "Julian-PC"
-        command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos/trunk/ZCom/ZComUnity/Assets/Scripts", "." )
+        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     elseif s:hostname == "Koko"
-        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ZCom/ZComUnity/Assets/Scripts", "." )
+        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Scripts", "." )
     elseif s:hostname == "monster"
-        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/ZCom/ZComUnity/Assets/Scripts", "." )
+        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Scripts", "." )
     endif
 elseif s:projectName == "pcsx2"
     if s:hostname == "Julian-PC"
@@ -253,7 +253,7 @@ elseif s:projectName == "chaos_server"
     if s:hostname == "Koko"
         command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosServer", "." )
     else
-        command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos/trunk/ChaosReborn/ChaosServer", "." )
+        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosServer", "." )
     endif
     command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
 elseif s:projectName != ""
