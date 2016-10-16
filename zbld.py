@@ -149,6 +149,7 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
         if cc == CCompiler( m32 ):
             cflags += " -std=gnu99"
             cflags += " -Woverride-init -Wold-style-declaration -Wmissing-parameter-type"
+            cflags += " -Wno-misleading-indentation"
         elif cc == CPPCompiler():
             cflags += " -std=c++11"
         # get .c files dependencies
