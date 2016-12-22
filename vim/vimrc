@@ -57,7 +57,7 @@ elseif s:projectName == "zcom_client"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\""
+    let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
@@ -114,8 +114,10 @@ function! Build_f( ... )
 
     execute "make -f " . a:2 . "/Makefile"
 
-    if s:projectName == "chaos_client" || s:projectName == "zcom_client"
+    if s:projectName == "chaos_client"
         execute "!ctags -R " . a:2
+	elseif s:projectName == "zcom_client"
+        execute "!ctags -R " . a:2 . " \"../../Defs\""
     elseif s:projectName == "chaos_server"
         execute "!ctags -R " . a:2 . s:additionalSVNDirs
     elseif s:projectName == "pcsx2"
@@ -234,6 +236,7 @@ elseif s:projectName == "zcom_client"
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     endif
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", "../../Defs" )
 elseif s:projectName == "pcsx2"
     if s:hostname == "Julian-PC"
         command! -nargs=0 Build call Build_f( "/tmp/pcsx2", "." )
