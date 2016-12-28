@@ -94,7 +94,7 @@ elseif s:hostname == "Julian-PC"
     "set vb 
 elseif s:hostname == "Koko"
     "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 8
-    set guifont=Inconsolata\ 10
+    set guifont=Inconsolata\ Medium\ 11
 else
     set guifont=Droid\ Sans\ Mono\ 9
 endif
