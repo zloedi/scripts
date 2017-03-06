@@ -330,10 +330,6 @@ command! -nargs=+ SVNcommitMulti    execute "!svn commit --targets /tmp/SVNstatu
 command! -nargs=+ SVNcommit         execute "!svn commit \"%\" -m \"" . <q-args> . "\"" | SVNdiffoff
 command! -nargs=0 SVNblame          call SvnBlame()
 command! -nargs=0 SVNblameoff       call SvnBlameOff()
-   
-command! -nargs=0 GITdiff           diffoff! | execute "!git archive HEAD \"%\" | tar -x -C /tmp" | vert diffsplit /tmp/% | wincmd x | goto
-command! -nargs=0 GITdiffoff        execute "bd /tmp/" . expand("%") | diffoff!
-command! -nargs=0 GITstatus         e /tmp/GITstatus_vim | bd /tmp/GITstatus_vim | execute "!git status -s | sort | grep -ve ^[?I] -ve \.mat > /tmp/GITstatus_vim" | 10split | e /tmp/GITstatus_vim | wincmd w
 
 command! -nargs=+ ReplaceCwordInFile execute "%s/" . expand( "<cword>" ) . "/" . <q-args> . "/g"
 command! -nargs=0 Date              execute ".!date +\"\\%A \\%B \\%d \\%Y\""
