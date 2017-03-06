@@ -27,6 +27,7 @@ Plugin 'tpope/vim-fugitive'
 " " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -76,6 +77,7 @@ colorscheme desert
 syntax on
 
 let g:airline_powerline_fonts = 1
+let g:airline_theme='badwolf'
 
 let s:hostname = substitute(system("hostname"), "\n", "", "")
 let s:osname = substitute(system("uname -o"), "\n", "", "")
