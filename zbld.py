@@ -92,7 +92,7 @@ def CPPCompiler( m32 ):
             # 64 bit target
             cc = "x86_64-w64-mingw32-g++"
     else:
-		cc = "g++"
+        cc = "g++"
 
     return cc
 
@@ -113,7 +113,7 @@ def CCompiler( m32 ):
 def EmitLink( linker, target, targetDir, linkerFlags ):
 
     if IsWindows():
-        linkerFlags += " -static-libgcc -static-libstdc++"
+        linkerFlags += " -static -static-libgcc -static-libstdc++"
 
     return """
 
@@ -129,7 +129,7 @@ def CCObjExt( obj, m32 ):
     ext = ".c"
 
     if len( obj ) >= 4 and obj[-4:] == ".cpp":
-        cc = CPPCompiler()
+        cc = CPPCompiler( m32 )
         o = obj[:-4]
         ext = ".cpp"
     elif len( obj ) >= 2 and obj[-2:] == ".c":
@@ -150,7 +150,7 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
             cflags += " -std=gnu99"
             cflags += " -Woverride-init -Wold-style-declaration -Wmissing-parameter-type"
             cflags += " -Wno-misleading-indentation"
-        elif cc == CPPCompiler():
+        elif cc == CPPCompiler( m32 ):
             cflags += " -std=c++11"
         # get .c files dependencies
         cmd = cc + " -MM " + cflags + " \"" + dir + o + ext + "\""
