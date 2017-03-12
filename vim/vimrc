@@ -77,7 +77,8 @@ colorscheme desert
 syntax on
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme='badwolf'
+"let g:airline_theme='badwolf' cant be seen in desert vim theme
+let g:airline_theme='aurora'
 
 let s:hostname = substitute(system("hostname"), "\n", "", "")
 let s:osname = substitute(system("uname -o"), "\n", "", "")
