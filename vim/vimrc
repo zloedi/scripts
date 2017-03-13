@@ -130,8 +130,9 @@ else
 endif
 
 if s:hostname == "monster"
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
     "set guifont=Droid\ Sans\ Mono\ 9
-    set guifont=Inconsolata\ 8 
+    "set guifont=Inconsolata\ 8 
 elseif s:hostname == "laptop"
     set guifont=Inconsolata\ 9 
 elseif s:hostname == "Phoenix"
