@@ -107,6 +107,7 @@ elseif s:projectName == "zcom_client"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
+    let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\""
     let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
@@ -148,7 +149,8 @@ elseif s:hostname == "Julian-PC"
     "set vb 
 elseif s:hostname == "Koko"
     "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 8
-    set guifont=Inconsolata\ Medium\ 11
+    "set guifont=Inconsolata\ Medium\ 11
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
 else
     set guifont=Droid\ Sans\ Mono\ 9
 endif
@@ -171,7 +173,7 @@ function! Build_f( ... )
     if s:projectName == "chaos_client"
         execute "!ctags -R " . a:2
 	elseif s:projectName == "zcom_client"
-        execute "!ctags -R " . a:2 . " \"../../Defs\""
+        execute "!ctags -R " . a:2 . "/" . " " . s:additionalCTagsDirs
     elseif s:projectName == "chaos_server"
         execute "!ctags -R " . a:2 . s:additionalSVNDirs
     elseif s:projectName == "pcsx2"
@@ -290,7 +292,7 @@ elseif s:projectName == "zcom_client"
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     endif
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", "../../Defs" )
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", "../../../PhoenixPointServer", "../../Defs" )
 elseif s:projectName == "pcsx2"
     if s:hostname == "Julian-PC"
         command! -nargs=0 Build call Build_f( "/tmp/pcsx2", "." )
