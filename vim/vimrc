@@ -107,7 +107,7 @@ elseif s:projectName == "zcom_client"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\""
+    let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\" \"../Extensions/Bezier\" \"../Extensions/Editor/Bezier\" \"../Extensions/Editor/Build\""
     let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
@@ -172,8 +172,6 @@ function! Build_f( ... )
 
     if s:projectName == "chaos_client"
         execute "!ctags -R " . a:2
-	elseif s:projectName == "zcom_client"
-        execute "!ctags -R " . a:2 . "/" . " " . s:additionalCTagsDirs
     elseif s:projectName == "chaos_server"
         execute "!ctags -R " . a:2 . s:additionalSVNDirs
     elseif s:projectName == "pcsx2"
@@ -208,11 +206,15 @@ function! FindInFiles_f( ... )
     elseif a:0 == 2 
         execute cmdPref . a:1 . "\" \"" . a:2 . "\" " . cmdSuf
     elseif a:0 == 3 
-        execute cmdPref . a:1 . "\" \"" . a:2 . "\" \"" . a:3 . "\" " . cmdSuf
+        execute cmdPref . a:1 . "\" " . a:2 . " " . a:3 . " " . cmdSuf
     elseif a:0 == 4 
         execute cmdPref . a:1 . "\" \"" . a:2 . "\" \"" . a:3 . "\" \"" . a:4 . "\" " . cmdSuf
     elseif a:0 == 5 
         execute cmdPref . a:1 . "\" \"" . a:2 . "\" \"" . a:3 . "\" \"" . a:4 . "\" \"" . a:5 . "\" " . cmdSuf
+    elseif a:0 == 6 
+        execute cmdPref . a:1 . "\" \"" . a:2 . "\" \"" . a:3 . "\" \"" . a:4 . "\" \"" . a:5 . "\" \"" . a:6 . "\" " . cmdSuf
+    elseif a:0 == 7 
+        execute cmdPref . a:1 . "\" \"" . a:2 . "\" \"" . a:3 . "\" \"" . a:4 . "\" \"" . a:5 . "\" \"" . a:6 . "\" \"" . a:7 . "\" " . cmdSuf
     else
         echo "Num of args not supported"
     endif
@@ -292,7 +294,7 @@ elseif s:projectName == "zcom_client"
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     endif
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", "../../../PhoenixPointServer", "../../Defs" )
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
 elseif s:projectName == "pcsx2"
     if s:hostname == "Julian-PC"
         command! -nargs=0 Build call Build_f( "/tmp/pcsx2", "." )
