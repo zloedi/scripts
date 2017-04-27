@@ -107,7 +107,8 @@ elseif s:projectName == "zcom_client"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\" \"../Extensions/Bezier\" \"../Extensions/Editor/Bezier\" \"../Extensions/Editor/Build\""
+    "let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\" \"../Extensions/Bezier\" \"../Extensions/Editor/Bezier\" \"../Extensions/Editor/Build\""
+    let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\" \"../Extensions/Editor/Build\""
     let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
