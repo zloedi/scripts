@@ -298,7 +298,7 @@ elseif s:projectName == "zcom_client"
     if s:hostname == "Julian-PC"
         command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     elseif s:hostname == "monster-win"
-        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
+        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     endif
