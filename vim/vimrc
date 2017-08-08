@@ -111,6 +111,12 @@ elseif s:projectName == "zcom_client"
     "let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\" \"../Extensions/Bezier\" \"../Extensions/Editor/Bezier\" \"../Extensions/Editor/Build\""
     let s:additionalCTagsDirs = "\"../../../PhoenixPointServer\" \"../../Defs\" \"../Extensions/Editor/Build\""
     let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\""
+elseif s:projectName == "zcom_navmesh"
+    set noexpandtab
+    set errorformat=\ %#%f(%l\\\,%c):\ %m
+    " use quotes
+    let s:additionalCTagsDirs = "\"../../Defs\" \"../Extensions/Editor/Build\""
+    let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
@@ -293,6 +299,15 @@ elseif s:projectName == "zcom_client"
         command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     elseif s:hostname == "monster-win"
         command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
+    elseif s:hostname == "monster"
+        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
+    endif
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
+elseif s:projectName == "zcom_navmesh"
+    if s:hostname == "Julian-PC"
+        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPointNavMesh/Assets/Code", "." )
+    elseif s:hostname == "monster-win"
+        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPointNavMesh/Assets/Code", "." )
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     endif
