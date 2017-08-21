@@ -1,6 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" use this to setup vundle: git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -154,7 +155,7 @@ elseif s:hostname == "Julian-PC"
     "set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Medium\ 11
     "set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline\ 10
     "set vb 
-elseif s:hostname == "Koko"
+elseif s:hostname == "monster-win"
     "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 8
     "set guifont=Inconsolata\ Medium\ 11
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
@@ -296,8 +297,17 @@ elseif 0
 elseif s:projectName == "zcom_client"
     if s:hostname == "Julian-PC"
         command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
-    elseif s:hostname == "Koko"
-        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
+    elseif s:hostname == "monster-win"
+        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
+    elseif s:hostname == "monster"
+        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
+    endif
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
+elseif s:projectName == "zcom_navmesh"
+    if s:hostname == "Julian-PC"
+        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPointNavMesh/Assets/Code", "." )
+    elseif s:hostname == "monster-win"
+        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPointNavMesh/Assets/Code", "." )
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     endif
@@ -321,10 +331,17 @@ elseif s:projectName == "chaos_client"
     if s:hostname == "Julian-PC"
         command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
     elseif s:hostname == "Koko"
+        command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos_old/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
+        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosUnity5/ChaosUnity/Assets/Scripts", "." )
+        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
+    elseif s:hostname == "monster-win"
         command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
     endif
 elseif s:projectName == "chaos_server"
-    if s:hostname == "Koko"
+    if s:hostname == "monster-win"
         command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosServer", "." )
     else
         command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosServer", "." )
