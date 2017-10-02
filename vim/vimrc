@@ -312,6 +312,15 @@ elseif s:projectName == "zcom_navmesh"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/PhoenixPointUnity/Assets/Code", "." )
     endif
     command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
+elseif s:projectName == "zcom_navmesh"
+    if s:hostname == "Julian-PC"
+        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPointNavMesh/Assets/Code", "." )
+    elseif s:hostname == "Koko"
+        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/PhoenixPointNavMesh/Assets/Code", "." )
+    elseif s:hostname == "monster"
+        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPointNavMesh/Assets/Code", "." )
+    endif
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
 elseif s:projectName == "pcsx2"
     if s:hostname == "Julian-PC"
         command! -nargs=0 Build call Build_f( "/tmp/pcsx2", "." )
@@ -320,6 +329,8 @@ elseif s:projectName == "pcsx2"
     endif
 elseif s:projectName == "chaos_client"
     if s:hostname == "Julian-PC"
+        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+    elseif s:hostname == "Koko"
         command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos_old/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
         "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
         "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
