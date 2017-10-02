@@ -32,12 +32,15 @@ def GetHostLflags( hostDir, m32 = False ):
         #lflags += " -L" + hostDir + LIBS_DIR + "freetype/lib"
         if m32:
             lflags += " -L" + hostDir + LIBS_DIR + "SDL2/lib/x86"
+            lflags += " -L" + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/lib"
         else:
             lflags += " -L" + hostDir + LIBS_DIR + "SDL2/lib/x64"
+            lflags += " -L" + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/lib"
         #lflags += " -lfreetype"
         # keep the order here
         #lflags += " -lmingw32 -lSDL2main -lSDL2 -mwindows"
-        lflags += " -lSDL2main -lSDL2 -mwindows"
+        lflags += " -lSDL2_mixer -lSDL2main -lSDL2 -mwindows"
+        lflags += " -lwinmm"
         lflags += " -lopengl32"
     else:
         lflags += " `sdl2-config --libs`"
@@ -46,12 +49,16 @@ def GetHostLflags( hostDir, m32 = False ):
         lflags += " -lm"
     return lflags
 
-def GetHostCflags( hostDir ):
+def GetHostCflags( hostDir, m32 ):
     cflags = " -I" + hostDir
     cflags += " -I" + hostDir + LIBS_DIR
     if IsWindows():
 		#cflags += " -I" + hostDir + LIBS_DIR + "freetype/include/freetype2/freetype"
         cflags += " -I" + hostDir + LIBS_DIR + "SDL2/include"
+        if m32:
+            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/include/SDL2"
+        else:
+            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/include/SDL2"
     else:
         cflags += " `sdl2-config --cflags` `freetype-config --cflags`"
     return cflags
@@ -73,6 +80,7 @@ def GetHostObjs():
         "events",
         "input",
         "r_sdl",
+        "sound",
         "sys_common",
         "util",
         "var",
@@ -174,7 +182,7 @@ def Configure( appObjs,
                m32 = False ):
     if useHost:
         appObjs = [( hostDir, GetHostObjs() )] + appObjs
-        appCFlags += GetHostCflags( hostDir ) 
+        appCFlags += GetHostCflags( hostDir, m32 ) 
         appLinkerFlags += GetHostLflags( hostDir )
 
     makefile      = outputDir + 'Makefile'
