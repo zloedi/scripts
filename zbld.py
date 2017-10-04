@@ -80,7 +80,6 @@ def GetHostObjs():
         "events",
         "input",
         "r_sdl",
-        "sound",
         "sys_common",
         "util",
         "var",
