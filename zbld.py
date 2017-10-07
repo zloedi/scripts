@@ -17,13 +17,22 @@ def IsWindows():
 def NormalizePath( path ):
     return path
 
-def HostCopyProperSDL( hostDir, m32 = False ):
+def HostCopyProperSDLAndFriends( hostDir, m32 = False ):
     # this assumes 64bit mingw. assumes too much
     Cmd( "rm ./SDL2.dll" )
+    Cmd( "rm ./libogg-0.dll" )
+    Cmd( "rm ./libvorbis-0.dll" )
+    Cmd( "rm ./libvorbisfile-3.dll" )
     if m32:
         Cmd( "cp " + hostDir + LIBS_DIR + "SDL2/i686-w64-mingw32/bin/SDL2.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/bin/libogg-0.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/bin/libvorbis-0.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/bin/libvorbisfile-3.dll ./" )
     else:
         Cmd( "cp " + hostDir + LIBS_DIR + "SDL2/x86_64-w64-mingw32/bin/SDL2.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/bin/libogg-0.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/bin/libvorbis-0.dll ./" )
+        Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/bin/libvorbisfile-3.dll ./" )
     Cmd( "chmod +x ./SDL2.dll" )
 
 def GetHostLflags( hostDir, m32 = False ):
@@ -288,4 +297,4 @@ OBJS=\\
 def PostConfigure( hostDir = "../zhost/", m32 = False, useSDL = True ):
     Cmd( "make clean" );
     if useSDL and IsWindows():
-        HostCopyProperSDL( hostDir, m32 )
+        HostCopyProperSDLAndFriends( hostDir, m32 )
