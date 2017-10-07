@@ -44,6 +44,7 @@ def GetHostLflags( hostDir, m32 = False ):
         lflags += " -lopengl32"
     else:
         lflags += " `sdl2-config --libs`"
+        lflags += " -lSDL_mixer"
         lflags += " -lGL"
         lflags += " -lfreetype"
         lflags += " -lm"
@@ -54,11 +55,12 @@ def GetHostCflags( hostDir, m32 ):
     cflags += " -I" + hostDir + LIBS_DIR
     if IsWindows():
 		#cflags += " -I" + hostDir + LIBS_DIR + "freetype/include/freetype2/freetype"
-        cflags += " -I" + hostDir + LIBS_DIR + "SDL2/include"
         if m32:
-            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/include/SDL2"
+            cflags += " -I" + hostDir + LIBS_DIR + "SDL2/i686-w64-mingw32/include"
+            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/include"
         else:
-            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/include/SDL2"
+            cflags += " -I" + hostDir + LIBS_DIR + "SDL2/x86_64-w64-mingw32/include"
+            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/include"
     else:
         cflags += " `sdl2-config --cflags` `freetype-config --cflags`"
     return cflags
