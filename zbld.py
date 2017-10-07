@@ -55,6 +55,7 @@ def GetHostCflags( hostDir, m32 ):
     cflags += " -I" + hostDir + LIBS_DIR
     if IsWindows():
 		#cflags += " -I" + hostDir + LIBS_DIR + "freetype/include/freetype2/freetype"
+        cflags += " -I" + hostDir + LIBS_DIR + "SDL2/include"
         if m32:
             cflags += " -I" + hostDir + LIBS_DIR + "SDL2/i686-w64-mingw32/include"
             cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/include"
