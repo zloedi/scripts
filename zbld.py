@@ -44,7 +44,7 @@ def GetHostLflags( hostDir, m32 = False ):
         lflags += " -lopengl32"
     else:
         lflags += " `sdl2-config --libs`"
-        lflags += " -lSDL_mixer"
+        lflags += " -lSDL2_mixer"
         lflags += " -lGL"
         lflags += " -lfreetype"
         lflags += " -lm"
