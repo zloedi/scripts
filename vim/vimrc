@@ -115,8 +115,8 @@ elseif s:projectName == "zcom_navmesh"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalCTagsDirs = "\"../../Defs\" \"../Extensions/Editor/Build\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\""
-    let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\""
+    let s:additionalCTagsDirs = "\"../../Defs\" \"../Extensions/Editor/Build\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\" \"../Users/Stoiko/Code\""
+    let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\ \"../Users/Stoiko/Code\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
