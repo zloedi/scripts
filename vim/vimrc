@@ -115,8 +115,8 @@ elseif s:projectName == "zcom_navmesh"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalCTagsDirs = "\"../../Defs\" \"../Extensions/Editor/Build\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\" \"../Users/Stoiko/Code\""
-    let s:additionalSVNDirs = "\"../Scenes\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\ \"../Users/Stoiko/Code\""
+    let s:additionalCTagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\" \"../Users/Stoiko/Code\""
+    let s:additionalSVNDirs = "\"../Scenes\" \"../Shaders\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Extensions/Ultimate Game Tools/Fracturing/Scripts\" \"../Users/Stoiko/Code\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
@@ -232,7 +232,7 @@ function! SvnBlame()
    let line = line(".")
    setlocal nowrap
    " blame, ignoring white space changes
-   !svn blame "%" -x-w "%" > /tmp/SVNblame_vim
+   !/bin/svn blame "%" -x-w "%" > /tmp/SVNblame_vim
    18 vsplit! /tmp/SVNblame_vim
    e /tmp/SVNblame_vim
    setlocal nomodified nowrap winwidth=1
@@ -356,12 +356,12 @@ else
 endif
 
 command! -nargs=0 SVNdiffoff        execute "bd /tmp/" . expand("%:t") | diffoff!
-command! -nargs=0 SVNdiff           diffoff! | execute "!svn export --force \"%\" /tmp/%:t -r COMMITTED" | vert diffsplit /tmp/%:t | wincmd x | goto
-command! -nargs=0 SVNprev           diffoff! | execute "!svn export --force \"%\" /tmp/%:t -r PREV" | vert diffsplit /tmp/%:t | wincmd x | goto
-command! -nargs=0 SVNstatus         e /tmp/SVNstatus_vim | bd /tmp/SVNstatus_vim | execute "!svn status $(ls) " . s:additionalSVNDirs . " | sort | grep -ve ^[?I] -ve \.mat > /tmp/SVNstatus_vim" | 10split | e /tmp/SVNstatus_vim | wincmd w
-command! -nargs=0 SVNstatusx        e /tmp/SVNstatus_vim | bd /tmp/SVNstatus_vim | execute "!svn status $(ls) " . s:additionalSVNDirs . " | sort | grep -ve ^[?I] -ve \.mat > /tmp/SVNstatus_vim" | 10split | e /tmp/SVNstatus_vim | wincmd w
-command! -nargs=+ SVNcommitMulti    execute "!svn commit --targets /tmp/SVNstatus_vim -m \"" . <q-args> . "\"" | SVNdiffoff 
-command! -nargs=+ SVNcommit         execute "!svn commit \"%\" -m \"" . <q-args> . "\"" | SVNdiffoff
+command! -nargs=0 SVNdiff           diffoff! | execute "!/bin/svn export --force \"%\" /tmp/%:t -r COMMITTED" | vert diffsplit /tmp/%:t | wincmd x | goto
+command! -nargs=0 SVNprev           diffoff! | execute "!/bin/svn export --force \"%\" /tmp/%:t -r PREV" | vert diffsplit /tmp/%:t | wincmd x | goto
+command! -nargs=0 SVNstatus         e /tmp/SVNstatus_vim | bd /tmp/SVNstatus_vim | execute "!/bin/svn status $(ls) " . s:additionalSVNDirs . " | sort | grep -ve ^[?I] -ve \.mat > /tmp/SVNstatus_vim" | 10split | e /tmp/SVNstatus_vim | wincmd w
+command! -nargs=0 SVNstatusx        e /tmp/SVNstatus_vim | bd /tmp/SVNstatus_vim | execute "!/bin/svn status $(ls) " . s:additionalSVNDirs . " | sort | grep -ve ^[?I] -ve \.mat > /tmp/SVNstatus_vim" | 10split | e /tmp/SVNstatus_vim | wincmd w
+command! -nargs=+ SVNcommitMulti    execute "!/bin/svn commit --targets /tmp/SVNstatus_vim -m \"" . <q-args> . "\"" | SVNdiffoff 
+command! -nargs=+ SVNcommit         execute "!/bin/svn commit \"%\" -m \"" . <q-args> . "\"" | SVNdiffoff
 command! -nargs=0 SVNblame          call SvnBlame()
 command! -nargs=0 SVNblameoff       call SvnBlameOff()
 
