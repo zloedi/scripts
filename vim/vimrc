@@ -100,6 +100,11 @@ elseif s:projectName == "bgg"
     let s:homeDir = "~/work/github/bgg"
     let s:appToRun = "bgg_dbg"
     let s:additionalCTagsDirs = "../zhost"
+elseif s:projectName == "tetris"
+    set expandtab
+    let s:homeDir = "~/work/github/tetris"
+    let s:appToRun = "tetris_dbg"
+    let s:additionalCTagsDirs = "../zhost"
 elseif s:projectName == "zps2"
     set expandtab
     let s:homeDir = "~/work/github/zps2"
@@ -136,7 +141,8 @@ if s:hostname == "monster"
     "set guifont=Droid\ Sans\ Mono\ 9
     "set guifont=Inconsolata\ 8 
 elseif s:hostname == "laptop"
-    set guifont=Inconsolata\ 9 
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
+    "set guifont=Inconsolata\ 9 
 elseif s:hostname == "Phoenix"
     "set guifont=Lucida\ Console\ Semi-Condensed\ 10
     set guifont=Inconsolata\ Medium\ 10
@@ -169,7 +175,11 @@ function! Build_f( ... )
         let s:haveReadSession = 1
     endif
 
-    execute "make -f " . a:2 . "/Makefile " . a:3
+    if a:0 == 2
+        execute "make -f " . a:2
+    elseif a:0 == 3
+        execute "make -f " . a:2 . "/Makefile " . a:3
+    endif
 
     if s:projectName == "chaos_client"
         execute "!ctags -R " . a:2
