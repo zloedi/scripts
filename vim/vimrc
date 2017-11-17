@@ -176,7 +176,7 @@ function! Build_f( ... )
     endif
 
     if a:0 == 2
-        execute "make -f " . a:2
+        execute "make -f " . a:2 . "/Makefile "
     elseif a:0 == 3
         execute "make -f " . a:2 . "/Makefile " . a:3
     endif
