@@ -102,11 +102,24 @@ def GetHostObjs():
         objs.append( "sys_unix" )
     return objs
 
+def Windres( m32 ):
+    if IsWindows():
+        if m32: 
+            # 32 bit target
+            wr = "i686-w64-mingw32-windres"
+        else:
+            # 64 bit target
+            wr = "x86_64-w64-mingw32-windres"
+    else:
+        wr = "NONE"
+
+    return wr
+
 def CPPCompiler( m32 ):
     if IsWindows():
         if m32: 
             # 32 bit target
-            cc = "i686-w64-mingw32-g++.exe"
+            cc = "i686-w64-mingw32-g++"
         else:
             # 64 bit target
             cc = "x86_64-w64-mingw32-g++"
@@ -120,7 +133,7 @@ def CCompiler( m32 ):
     if IsWindows():
         if m32:
             # 32 bit target
-            cc = "i686-w64-mingw32-gcc.exe"
+            cc = "i686-w64-mingw32-gcc"
         else:
             # 64 bit target
             cc = "x86_64-w64-mingw32-gcc"
@@ -190,6 +203,7 @@ def Configure( appObjs,
                outputDir = "./",
                useHost = True,
                hostDir = "../zhost/",
+               doIcon = False,
                m32 = False ):
     if useHost:
         appObjs = [( hostDir, GetHostObjs() )] + appObjs
@@ -272,6 +286,9 @@ OBJS=\\
             if cc == CPPCompiler( m32 ):
                 linker = CPPCompiler( m32 )
             out += '\t$(OUT_DIR)' + o + '.o\\\n'
+
+    if doIcon:
+        out += '\ticon.res\\\n'
 
     out += "\n"
 
