@@ -113,8 +113,8 @@ elseif s:projectName == "zcom"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalCTagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\" \"../Users/Stoiko/Code\""
-    let s:additionalSVNDirs = "\"../Scenes\" \"../Shaders\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Users/Stoiko/Code\""
+    let s:additionalCTagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\" \".\""
+    let s:additionalSVNDirs = "\"../Scenes\" \"../Shaders\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Users/Stoiko/code\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
@@ -157,7 +157,7 @@ elseif s:hostname == "SNAPSHOT-STOIKO"
 elseif s:hostname == "monster-win"
     "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 8
     "set guifont=Inconsolata\ Medium\ 11
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 16
 else
     set guifont=Droid\ Sans\ Mono\ 9
 endif
@@ -179,6 +179,8 @@ function! Build_f( ... )
         execute "make -f " . a:2 . "/Makefile "
     elseif a:0 == 3
         execute "make -f " . a:2 . "/Makefile " . a:3
+    elseif a:0 == 4
+        execute "make -f " . a:2 . "/Makefile " . a:3 . " " . a:4
     endif
 
     if s:projectName == "chaos_client"
@@ -301,7 +303,11 @@ elseif s:projectName == "zcom"
     if s:hostname == "SNAPSHOT-STOIKO"
         command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", ".", "PATH_TO_SCRIPT=\"/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"" )
     elseif s:hostname == "monster-win"
-        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
+		"cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe0
+        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
+					\ "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
+					\ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
+					\ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/MSBuild/14.0/Bin/MSBuild.exe\"" )
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
     endif
