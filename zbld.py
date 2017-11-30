@@ -166,6 +166,10 @@ def CCObjExt( obj, m32 ):
         ext = ".cpp"
     elif len( obj ) >= 2 and obj[-2:] == ".c":
         o = obj[:-2]
+    elif len( obj ) >= 3 and obj[-3:] == ".rc":
+        cc = Windres( m32 )
+        o = obj[:-3]
+        ext = ".rc"
 
     return cc, o, ext
 
@@ -178,18 +182,22 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
         cflags += " -Wformat=2"
 
         cc, o, ext = CCObjExt( obj, m32 )
-        if cc == CCompiler( m32 ):
-            cflags += " -std=gnu99"
-            cflags += " -Woverride-init -Wold-style-declaration -Wmissing-parameter-type"
-            cflags += " -Wno-misleading-indentation"
-        elif cc == CPPCompiler( m32 ):
-            cflags += " -std=c++11"
-        # get .c files dependencies
-        cmd = cc + " -MM " + cflags + " \"" + dir + o + ext + "\""
-        depString = subprocess.Popen( cmd, shell = True, stdout = subprocess.PIPE ).communicate()[0]
-        out += '$(OUT_DIR)' + depString
-        out += "\t@echo compiling $< ; "        + cc + " $(GLOBAL_CFLAGS) " + cflags + " -o $@ -c $<\n"
-#out += "\t@echo assembly listing $< ; " + cc + " $(GLOBAL_CFLAGS) " + cflags + " -S -masm=intel -o $@.s -c $<\n"
+        if cc == Windres( m32 ):
+            out += '$(OUT_DIR)' + o + ".res: " + o + ext + "\n"
+            out += "\t@echo compiling resource $< ; "        + cc + " $< -O coff -o $@\n"
+        else:
+            if cc == CCompiler( m32 ):
+                cflags += " -std=gnu99"
+                cflags += " -Woverride-init -Wold-style-declaration -Wmissing-parameter-type"
+                cflags += " -Wno-misleading-indentation"
+            elif cc == CPPCompiler( m32 ):
+                cflags += " -std=c++11"
+            # get .c files dependencies
+            cmd = cc + " -MM " + cflags + " \"" + dir + o + ext + "\""
+            depString = subprocess.Popen( cmd, shell = True, stdout = subprocess.PIPE ).communicate()[0]
+            out += '$(OUT_DIR)' + depString
+            out += "\t@echo compiling $< ; "        + cc + " $(GLOBAL_CFLAGS) " + cflags + " -o $@ -c $<\n"
+    #out += "\t@echo assembly listing $< ; " + cc + " $(GLOBAL_CFLAGS) " + cflags + " -S -masm=intel -o $@.s -c $<\n"
         out += "\n"
         fileUID += 1
     return fileUID, out
@@ -203,7 +211,6 @@ def Configure( appObjs,
                outputDir = "./",
                useHost = True,
                hostDir = "../zhost/",
-               doIcon = False,
                m32 = False ):
     if useHost:
         appObjs = [( hostDir, GetHostObjs() )] + appObjs
@@ -262,10 +269,13 @@ all: debug_app release_app profile_app
 
 clean:
 	@rm "''' + debugDir + '''"*.o -vf
+	@rm "''' + debugDir + '''"*.res -vf
 	@rm "''' + debugTarget + '''" -vf
 	@rm "''' + releaseDir + '''"*.o -vf
+	@rm "''' + releaseDir + '''"*.res -vf
 	@rm "''' + releaseTarget + '''" -vf
 	@rm "''' + profileDir + '''"*.o -vf
+	@rm "''' + profileDir + '''"*.res -vf
 	@rm "''' + profileTarget + '''" -vf
 	@rm "''' + targetName + '''_dbg" -vf
 	@rm "''' + targetName + '''_prof" -vf
@@ -279,16 +289,15 @@ clean:
 OBJS=\\
 '''
     linker = CCompiler( m32 )
-
     for lst in appObjs:
         for obj in lst[1]:
             cc, o, ext = CCObjExt( obj, m32 )
-            if cc == CPPCompiler( m32 ):
-                linker = CPPCompiler( m32 )
-            out += '\t$(OUT_DIR)' + o + '.o\\\n'
-
-    if doIcon:
-        out += '\ticon.res\\\n'
+            if ext == '.rc':
+                out += '\t$(OUT_DIR)' + o + '.res\\\n'
+            else:
+                if cc == CPPCompiler( m32 ):
+                    linker = CPPCompiler( m32 )
+                out += '\t$(OUT_DIR)' + o + '.o\\\n'
 
     out += "\n"
 
