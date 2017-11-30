@@ -113,7 +113,7 @@ elseif s:projectName == "zcom"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalCTagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\" \".\""
+    let s:additionalCTagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\" \".\" \"../Users/Stoiko/code\""
     let s:additionalSVNDirs = "\"../Scenes\" \"../Shaders\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Users/Stoiko/code\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
