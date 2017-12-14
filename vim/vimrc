@@ -72,6 +72,8 @@ set ff=unix
 
 "disable autocommenting on new line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+"disable visual bell
+autocmd GUIEnter * set vb t_vb=
 "colorscheme default
 colorscheme desert
 "syntax off
