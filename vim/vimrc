@@ -150,7 +150,7 @@ elseif s:hostname == "Phoenix"
     set guifont=Inconsolata\ Medium\ 10
     "set lines=90
 elseif s:hostname == "SNAPSHOT-STOIKO"
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Medium\ 10
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Medium\ 11
     "set guifont=Inconsolata\ Medium\ 11
     "set guifont=Inconsolata\ for\ Powerline\ Medium\ 11
     "set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Medium\ 11
