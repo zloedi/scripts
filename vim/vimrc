@@ -301,7 +301,11 @@ elseif 0
     map <F5> :Run "~/work/ioquake3/build/release-linux-i386/ioquake3.i386" <CR>
 elseif s:projectName == "zcom"
     if s:hostname == "SNAPSHOT-STOIKO"
-        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", ".", "PATH_TO_SCRIPT=\"/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"" )
+        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", ".", "PATH_TO_SCRIPT=\"/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"" )
+        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
+					\ "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
+					\ "PATH_TO_SCRIPT=\"/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
+					\ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/MSBuild/14.0/Bin/MSBuild.exe\"" )
     elseif s:hostname == "monster-win"
 		"cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe0
         command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
