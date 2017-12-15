@@ -39,18 +39,17 @@ def GetHostLflags( hostDir, m32 = False ):
     lflags = ""
     if IsWindows():
         #lflags += " -L" + hostDir + LIBS_DIR + "freetype/lib"
+        directory = hostDir + LIBS_DIR
         if m32:
-            lflags += " -L" + hostDir + LIBS_DIR + "SDL2/lib/x86"
-            lflags += " -L" + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/lib"
+            prefix = directory + "SDL2/i686-w64-mingw32/"
+            lflags += " -L" + directory + "SDL2_mixer/i686-w64-mingw32/lib"
         else:
-            lflags += " -L" + hostDir + LIBS_DIR + "SDL2/lib/x64"
-            lflags += " -L" + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/lib"
+            prefix = directory + "SDL2/x86_64-w64-mingw32/"
+            lflags += " -L" + directory + "SDL2_mixer/x86_64-w64-mingw32/lib"
+        lflags += " `" + prefix + "bin/sdl2-config --prefix=" + prefix + " --static-libs`"
         #lflags += " -lfreetype"
-        # keep the order here
-        #lflags += " -lmingw32 -lSDL2main -lSDL2 -mwindows"
-        lflags += " -lSDL2_mixer -lSDL2main -lSDL2 -mwindows"
+        lflags += " -lSDL2_mixer"
         lflags += " -lwinmm"
-        lflags += " -lopengl32"
     else:
         lflags += " `sdl2-config --libs`"
         lflags += " -lSDL2_mixer"
@@ -63,14 +62,16 @@ def GetHostCflags( hostDir, m32 ):
     cflags = " -I" + hostDir
     cflags += " -I" + hostDir + LIBS_DIR
     if IsWindows():
-		#cflags += " -I" + hostDir + LIBS_DIR + "freetype/include/freetype2/freetype"
-        cflags += " -I" + hostDir + LIBS_DIR + "SDL2/include"
+	#cflags += " -I" + hostDir + LIBS_DIR + "freetype/include/freetype2/freetype"
+        #cflags += " -I" + hostDir + LIBS_DIR + "SDL2/include"
+        directory = hostDir + LIBS_DIR
         if m32:
-            cflags += " -I" + hostDir + LIBS_DIR + "SDL2/i686-w64-mingw32/include"
-            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/include"
+            prefix = directory + "SDL2/i686-w64-mingw32/"
+            cflags += " -I" + directory + "SDL2_mixer/i686-w64-mingw32/include"
         else:
-            cflags += " -I" + hostDir + LIBS_DIR + "SDL2/x86_64-w64-mingw32/include"
-            cflags += " -I" + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/include"
+            prefix = directory + "SDL2/x86_64-w64-mingw32/"
+            cflags += " -I" + directory + "SDL2_mixer/x86_64-w64-mingw32/include"
+        cflags += " `" + prefix + "bin/sdl2-config --prefix=" + prefix + " --cflags`"
     else:
         cflags += " `sdl2-config --cflags` `freetype-config --cflags`"
     return cflags
