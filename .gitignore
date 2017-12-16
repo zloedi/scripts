@@ -5,6 +5,7 @@
 *.pyc
 *.log
 *.log.full
+*.lnk
 vim/bundle
 tags
 Makefile
