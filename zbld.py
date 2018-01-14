@@ -23,6 +23,7 @@ def HostCopyProperSDLAndFriends( hostDir, m32 = False ):
     Cmd( "rm ./libogg-0.dll" )
     Cmd( "rm ./libvorbis-0.dll" )
     Cmd( "rm ./libvorbisfile-3.dll" )
+    Cmd( "rm ./gamecontrollerdb.txt" )
     if m32:
         Cmd( "cp " + hostDir + LIBS_DIR + "SDL2/i686-w64-mingw32/bin/SDL2.dll ./" )
         Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/i686-w64-mingw32/bin/libogg-0.dll ./" )
@@ -33,6 +34,7 @@ def HostCopyProperSDLAndFriends( hostDir, m32 = False ):
         Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/bin/libogg-0.dll ./" )
         Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/bin/libvorbis-0.dll ./" )
         Cmd( "cp " + hostDir + LIBS_DIR + "SDL2_mixer/x86_64-w64-mingw32/bin/libvorbisfile-3.dll ./" )
+    Cmd( "cp "  + hostDir + LIBS_DIR + "gamecontrollerdb.txt ./" )
     Cmd( "chmod +x ./SDL2.dll" )
 
 def GetHostLflags( hostDir, m32 = False ):
