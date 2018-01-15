@@ -96,26 +96,26 @@ if s:projectName == "zhost"
     set expandtab
     let s:homeDir = "~/work/github/zhost"
     let s:appToRun = "zhost_dbg"
-    let s:additionalCTagsDirs = ""
+    let s:ctagsDirs = ""
 elseif s:projectName == "bgg"
     set expandtab
     let s:homeDir = "~/work/github/bgg"
     let s:appToRun = "bgg_dbg"
-    let s:additionalCTagsDirs = "../zhost"
+    let s:ctagsDirs = "../zhost"
 elseif s:projectName == "tetris"
     set expandtab
     let s:homeDir = "~/work/github/tetris"
     let s:appToRun = "tetris_dbg"
-    let s:additionalCTagsDirs = "../zhost"
+    let s:ctagsDirs = "../zhost"
 elseif s:projectName == "zps2"
     set expandtab
     let s:homeDir = "~/work/github/zps2"
-    let s:additionalCTagsDirs = "../zhost"
+    let s:ctagsDirs = "../zhost"
 elseif s:projectName == "zcom"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:additionalCTagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\" \".\" \"../Users/Stoiko/code\""
+    let s:ctagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\""
     let s:additionalSVNDirs = "\"../Scenes\" \"../Shaders\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Users/Stoiko/code\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
@@ -192,7 +192,7 @@ function! Build_f( ... )
     elseif s:projectName == "pcsx2"
         execute "!ctags -R " . a:2 . "/" . " " . s:additionalSVNDirs
     elseif s:projectName != ""
-        execute "!ctags -R " . a:2 . "/" . " " . s:additionalCTagsDirs
+        execute "!ctags -R . \"" . a:2 . "/\"" . " " . s:ctagsDirs
     else 
         execute "!ctags -R " . a:2 . " " . "engine"
     endif
@@ -217,7 +217,7 @@ function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
     let cmdSuf = " --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
     if a:0 == 1 
-        execute cmdPref . a:1 . "\" . " . s:additionalSVNDirs . cmdSuf
+        execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
         execute cmdPref . a:1 . "\" \"" . a:2 . "\" " . cmdSuf
     elseif a:0 == 3 
@@ -317,7 +317,7 @@ elseif s:projectName == "zcom"
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
     endif
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
 elseif s:projectName == "pcsx2"
     if s:hostname == "SNAPSHOT-STOIKO"
         command! -nargs=0 Build call Build_f( "/tmp/pcsx2", "." )
@@ -347,7 +347,7 @@ elseif s:projectName == "chaos_server"
 elseif s:projectName != ""
     command! -nargs=0 Build call Build_f( s:homeDir, "." )
     command! -nargs=0 Run call Run_f( s:homeDir, ".", s:appToRun )
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalCTagsDirs )
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:ctagsDirs )
 else
     command! Build echo "Build: did you specify $ZPROJ? If yes, enable the build configuration for '" . s:projectName . "' in vimrc first"
 endif
