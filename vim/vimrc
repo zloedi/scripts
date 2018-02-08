@@ -115,7 +115,7 @@ elseif s:projectName == "zcom"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:ctagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\""
+    let s:ctagsDirs = "\"../../Defs\" \"../Shaders\" \"../Extensions/Editor/Build\" \"../Users/Stoiko/code\""
     let s:additionalSVNDirs = "\"../Scenes\" \"../Shaders\" \"../GUI\" \"../Art\" \"../ArtRaw\" \"../Resources\" \"../../Defs\" \"../Users/Stoiko/code\""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
@@ -303,7 +303,6 @@ elseif 0
     map <F5> :Run "~/work/ioquake3/build/release-linux-i386/ioquake3.i386" <CR>
 elseif s:projectName == "zcom"
     if s:hostname == "SNAPSHOT-STOIKO"
-        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", ".", "PATH_TO_SCRIPT=\"/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"" )
         command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
 					\ "/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
 					\ "PATH_TO_SCRIPT=\"/cygdrive/e/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
