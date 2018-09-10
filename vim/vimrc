@@ -159,7 +159,7 @@ elseif s:hostname == "SNAPSHOT-STOIKO"
 elseif s:hostname == "monster-win"
     "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 8
     "set guifont=Inconsolata\ Medium\ 11
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 16
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 else
     set guifont=Droid\ Sans\ Mono\ 9
 endif
@@ -307,7 +307,7 @@ elseif s:projectName == "zcom"
         command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
 					\ "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
 					\ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
-					\ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/MSBuild/14.0/Bin/MSBuild.exe\"" )
+					\ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
     endif
