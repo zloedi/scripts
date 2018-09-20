@@ -107,6 +107,11 @@ elseif s:projectName == "tetris"
     let s:homeDir = "~/work/github/tetris"
     let s:appToRun = "tetris_dbg"
     let s:ctagsDirs = "../zhost"
+elseif s:projectName == "bare_doom"
+    set expandtab
+    let s:homeDir = "~/work/github/bare_doom"
+    let s:appToRun = "bd_dbg"
+    let s:ctagsDirs = "../zhost"
 elseif s:projectName == "zps2"
     set expandtab
     let s:homeDir = "~/work/github/zps2"
