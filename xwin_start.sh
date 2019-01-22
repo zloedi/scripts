@@ -1,1 +1,1 @@
-XWin.exe -multiwindow
+DISPLAY=0 XWin.exe -multiwindow
