@@ -120,7 +120,7 @@ elseif s:projectName == "zcom"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:ctagsDirs = "\"../../NativePlugins/NativeSnapShot\" \"../Shaders\" \"../Extensions/BlendMachine\" \"../Extensions/Boxify\" \"../Users/Stoiko/code\""
+    let s:ctagsDirs = "\"../../NativePlugins/NativeSnapShot/unity_dlls\" \"../../NativePlugins/NativeSnapShot/libs/level5/tacticalmap\" \"../Shaders\" \"../Extensions/BlendMachine\" \"../Extensions/Boxify\" \"../Users/Stoiko/code\""
     let s:additionalSVNDirs = s:ctagsDirs
 elseif s:projectName == "chaos_client" 
     set noexpandtab
@@ -144,7 +144,7 @@ else
 endif
 
 if s:hostname == "monster"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
+	set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
     "set guifont=Droid\ Sans\ Mono\ 9
     "set guifont=Inconsolata\ 8 
 elseif s:hostname == "laptop"
@@ -155,8 +155,9 @@ elseif s:hostname == "Phoenix"
     set guifont=Inconsolata\ Medium\ 10
     "set lines=90
 elseif s:hostname == "SNAPSHOT-STOIKO"
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Medium\ 11
-    "set guifont=Inconsolata\ Medium\ 11
+    "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Medium\ 10
+	set t_md=
+    set guifont=Inconsolata\ Medium\ 10
     "set guifont=Inconsolata\ for\ Powerline\ Medium\ 11
     "set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Medium\ 11
     "set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline\ 10
@@ -220,7 +221,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
+    let cmdSuf = " --exclude=*.gltf --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
