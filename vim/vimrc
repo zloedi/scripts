@@ -120,7 +120,12 @@ elseif s:projectName == "zcom"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:ctagsDirs = "\"../../NativePlugins/NativeSnapShot\" \"../Shaders\" \"../Extensions/BlendMachine\" \"../Extensions/Boxify\" \"../Users/Stoiko/code\""
+    let s:ctagsDirs = "\"../../NativePlugins/NativeSnapShot/unity_dlls\" \"../../NativePlugins/NativeSnapShot/libs/level5/tacticalmap\" \"../Shaders\" \"../Extensions/BlendMachine\" \"../Extensions/Boxify\" \"../Users/Stoiko/code\""
+    let s:additionalSVNDirs = s:ctagsDirs
+elseif s:projectName == "boxify"
+    set noexpandtab
+    set errorformat=\ %#%f(%l\\\,%c):\ %m
+    let s:ctagsDirs = "."
     let s:additionalSVNDirs = s:ctagsDirs
 elseif s:projectName == "chaos_client" 
     set noexpandtab
@@ -155,8 +160,9 @@ elseif s:hostname == "Phoenix"
     set guifont=Inconsolata\ Medium\ 10
     "set lines=90
 elseif s:hostname == "SNAPSHOT-STOIKO"
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Medium\ 11
-    "set guifont=Inconsolata\ Medium\ 11
+    "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ Medium\ 10
+    set t_md=
+    set guifont=Inconsolata\ Medium\ 10
     "set guifont=Inconsolata\ for\ Powerline\ Medium\ 11
     "set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Medium\ 11
     "set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline\ 10
@@ -220,7 +226,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
+    let cmdSuf = " --exclude=*.gltf --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
@@ -308,11 +314,20 @@ elseif 0
     map <F5> :Run "~/work/ioquake3/build/release-linux-i386/ioquake3.i386" <CR>
 elseif s:projectName == "zcom"
     if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
-		"cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe0
         command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
-					\ "/home/stoiko/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
-					\ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
-					\ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
+                    \ "/home/stoiko/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
+                    \ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
+                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
+    elseif s:hostname == "monster"
+        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
+    endif
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
+elseif s:projectName == "boxify"
+    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
+        command! -nargs=0 Build call Build_f( "~/work/boxify/Assets/Scripts",
+                    \ ".", 
+                    \ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
+                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
     endif
