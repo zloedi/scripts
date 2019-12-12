@@ -122,17 +122,17 @@ elseif s:projectName == "brickslam"
     let s:homeDir = "~/work/github/brickslam"
     let s:ctagsDirs = "../zhost"
     let s:appToRun = "brickslam_dbg"
-elseif s:projectName == "zcom"
+elseif s:projectName == "zcom" || s:projectName == "zcom_rc"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
-    let s:ctagsDirs = "\"../../NativePlugins/NativeSnapShot/unity_dlls\" \"../../NativePlugins/NativeSnapShot/libs/level5/tacticalmap\" \"../Shaders\" \"../Extensions/BlendMachine\" \"../Extensions/Boxify\" \"../Users/Stoiko/code\""
+    let s:ctagsDirs = "\"../../NativePlugins/NativeSnapShot/unity_dlls\" \"../../NativePlugins/NativeSnapShot/libs/level5/tacticalmap\" \"../Shaders\" \"../Extensions/Boxify\" \"../Users/Stoiko/code\""
     let s:additionalSVNDirs = s:ctagsDirs
 elseif s:projectName == "boxify"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
-    let s:ctagsDirs = "."
-    let s:additionalSVNDirs = s:ctagsDirs
+    "let s:ctagsDirs = "."
+    let s:additionalSVNDirs = ""
 elseif s:projectName == "chaos_client" 
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
@@ -323,6 +323,16 @@ elseif s:projectName == "zcom"
         command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
                     \ "/home/stoiko/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
                     \ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
+                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
+    elseif s:hostname == "monster"
+        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
+    endif
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
+elseif s:projectName == "zcom_rc"
+    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
+        command! -nargs=0 Build call Build_f( "/cygdrive/d/PhoenixPointUnityRC/Assets/Code",
+                    \ "/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code", 
+                    \ "PATH_TO_SCRIPT=\"/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
                     \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
     elseif s:hostname == "monster"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
