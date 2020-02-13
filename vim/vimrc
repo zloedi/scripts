@@ -165,6 +165,8 @@ if s:hostname == "monster"
     "set guifont=Inconsolata\ 8 
 elseif s:hostname == "DESKTOP-TD3AU4V"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+elseif s:hostname == "DESKTOP-JUGNII1"
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
 elseif s:hostname == "laptop"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
     "set guifont=Inconsolata\ 9 
