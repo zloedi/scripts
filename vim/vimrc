@@ -81,7 +81,7 @@ colorscheme desert
 syntax on
 
 let g:airline_powerline_fonts = 1
-"let g:airline_theme='badwolf' cant be seen in desert vim theme
+let g:airline_theme='badwolf' "cant be seen in desert vim theme
 "let g:airline_theme='aurora'
 
 let s:hostname = substitute(system("hostname"), "\n", "", "")
@@ -164,7 +164,7 @@ if s:hostname == "monster"
     "set guifont=Droid\ Sans\ Mono\ 9
     "set guifont=Inconsolata\ 8 
 elseif s:hostname == "DESKTOP-TD3AU4V"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "DESKTOP-JUGNII1"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
 elseif s:hostname == "laptop"
@@ -203,7 +203,9 @@ function! Build_f( ... )
         let s:haveReadSession = 1
     endif
 
-    if a:0 == 2
+    if s:projectName == "bms"
+        execute "make -f " . a:2 . "/cygwin/Makefile-cygwin"
+    elseif a:0 == 2
         execute "make -f " . a:2 . "/Makefile "
     elseif a:0 == 3
         execute "make -f " . a:2 . "/Makefile " . a:3
@@ -241,7 +243,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude=*.gltf --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --include=*.{c,cs,cpp,h,lua}" 
+    let cmdSuf = " --exclude=*.gltf --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --exclude=*.map --include=*.{c,cs,cpp,h,lua}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
@@ -306,6 +308,8 @@ elseif s:projectName == "laser_chess"
     command! -nargs=0 Run call Run_f( "~/work/private", "laser_chess", "laser_chess_dbg" )
     command! -nargs=0 Clean execute "!make -f ~/work/private/laser_chess/Makefile clean"
     command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"laser_chess\" \"engine\" --exclude-dir=.svn --exclude=tags" 
+elseif s:projectName == "bms"
+    command! -nargs=0 Build call Build_f( "~/work/BMSDoorPanels", "." )
 elseif 0
     command! -nargs=0 Build call Build_f( "~/work/private", "necropolis" )
     command! -nargs=0 Run call Run_f( "~/work/private", "necropolis", "necropolis_dbg" )
