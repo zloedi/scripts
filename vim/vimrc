@@ -166,7 +166,7 @@ if s:hostname == "monster"
 elseif s:hostname == "DESKTOP-TD3AU4V"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "DESKTOP-JUGNII1"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "laptop"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
     "set guifont=Inconsolata\ 9 
@@ -243,7 +243,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude=*.gltf --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --exclude=*.map --include=*.{c,cs,cpp,h,lua}" 
+    let cmdSuf = " --exclude=*.gltf --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --exclude=*.{mk,o.d,map} --exclude=*.map --include=*.{c,cs,cpp,h,lua}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
