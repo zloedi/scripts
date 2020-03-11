@@ -243,7 +243,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude=*.gltf --exclude=*.unity --exclude=*.asset --exclude=*.meta --exclude-dir=.git --exclude-dir=.svn --exclude=Makefile --exclude=tags --exclude=*.csproj --exclude=*.xml --exclude=*.config --exclude=*.{mk,o.d,map} --exclude=*.map --include=*.{c,cs,cpp,h,lua}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags} --exclude=*.{csproj,config,xml,html,mk,o.d,map} --include=*.{c,cs,cpp,h,lua}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
