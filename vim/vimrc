@@ -100,6 +100,11 @@ if s:projectName == "zhost"
     let s:ctagsDirs = ""
 elseif s:projectName == "bms"
     set expandtab
+    let s:homeDir = "~/work/BMS/BMS_PIC24FJ256GA704.X"
+    let s:appToRun = "xxx"
+    let s:ctagsDirs = ""
+elseif s:projectName == "bms_doors"
+    set expandtab
     let s:homeDir = "~/work/BMSDoorPanels"
     let s:appToRun = "xxx"
     let s:ctagsDirs = ""
@@ -203,7 +208,7 @@ function! Build_f( ... )
         let s:haveReadSession = 1
     endif
 
-    if s:projectName == "bms"
+    if s:projectName == "bms_doors" || s:projectName == "bms"
         execute "make -f " . a:2 . "/cygwin/Makefile-cygwin"
     elseif a:0 == 2
         execute "make -f " . a:2 . "/Makefile "
@@ -309,6 +314,8 @@ elseif s:projectName == "laser_chess"
     command! -nargs=0 Clean execute "!make -f ~/work/private/laser_chess/Makefile clean"
     command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"laser_chess\" \"engine\" --exclude-dir=.svn --exclude=tags" 
 elseif s:projectName == "bms"
+    command! -nargs=0 Build call Build_f( "~/work/BMS/BMS_PIC24FJ256GA704.X", "." )
+elseif s:projectName == "bms_doors"
     command! -nargs=0 Build call Build_f( "~/work/BMSDoorPanels", "." )
 elseif 0
     command! -nargs=0 Build call Build_f( "~/work/private", "necropolis" )
