@@ -132,6 +132,16 @@ elseif s:projectName == "brickslam"
     let s:homeDir = "~/work/github/brickslam"
     let s:ctagsDirs = "../zhost"
     let s:appToRun = "brickslam_dbg"
+elseif s:projectName == "zpsx"
+    set expandtab
+    let s:homeDir = "~/work/github/zpsx"
+    let s:ctagsDirs = ""
+    let s:appToRun = "zpsx_dbg"
+elseif s:projectName == "zs"
+    set expandtab
+    let s:homeDir = "~/work/github/zhost_scratch"
+    let s:ctagsDirs = "../zhost"
+    let s:appToRun = "zs_dbg"
 elseif s:projectName == "zcom" || s:projectName == "zcom_rc"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
