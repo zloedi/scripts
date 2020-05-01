@@ -135,7 +135,6 @@ elseif s:projectName == "brickslam"
 elseif s:projectName == "zpsx"
     set expandtab
     let s:homeDir = "~/work/github/zpsx"
-    let s:ctagsDirs = ""
     let s:appToRun = "zpsx_dbg"
 elseif s:projectName == "zs"
     set expandtab
@@ -235,7 +234,7 @@ function! Build_f( ... )
     elseif s:projectName == "pcsx2"
         execute "!ctags -R " . a:2 . "/" . " " . s:additionalSVNDirs
     elseif s:projectName != ""
-        execute "!ctags -R . \"" . a:2 . "/\"" . " " . s:ctagsDirs
+        execute "!ctags -R \"" . a:2 . "/\"" . " " . s:ctagsDirs
     else 
         execute "!ctags -R " . a:2 . " " . "engine"
     endif

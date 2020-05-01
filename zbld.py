@@ -181,8 +181,7 @@ def EmitObjsAndDeps( dir, objs, appCFlags, fileUID, m32 ):
     for obj in objs:
         cflags = appCFlags + " -DFILE_UID=" + str( fileUID )
 
-        cflags += " -Wall"
-        cflags += " -Wformat=2"
+        cflags += " -Wall -Wextra -Wdouble-promotion -Wformat=2" # -Wconversion"
 
         cc, o, ext = CCObjExt( obj, m32 )
         if cc == Windres( m32 ):
