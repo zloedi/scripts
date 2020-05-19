@@ -103,9 +103,9 @@ elseif s:projectName == "bms"
     let s:homeDir = "~/work/BMS/BMS_PIC24FJ256GA704.X"
     let s:appToRun = "xxx"
     let s:ctagsDirs = ""
-elseif s:projectName == "bms_doors"
-    set expandtab
-    let s:homeDir = "~/work/BMSDoorPanels"
+elseif s:projectName == "intellics"
+    set noexpandtab
+    let s:homeDir = "~/work/DoorsNG"
     let s:appToRun = "xxx"
     let s:ctagsDirs = ""
 elseif s:projectName == "bgg"
@@ -135,7 +135,12 @@ elseif s:projectName == "brickslam"
 elseif s:projectName == "zpsx"
     set expandtab
     let s:homeDir = "~/work/github/zpsx"
+    let s:ctagsDirs = ""
     let s:appToRun = "zpsx_dbg"
+    set textwidth=80
+    set colorcolumn=+1        " highlight column after 'textwidth'
+    "set colorcolumn=+1,+2,+3  " highlight three columns after 'textwidth'
+    highlight ColorColumn ctermbg=lightgrey guibg=black
 elseif s:projectName == "zs"
     set expandtab
     let s:homeDir = "~/work/github/zhost_scratch"
@@ -180,7 +185,7 @@ if s:hostname == "monster"
 elseif s:hostname == "DESKTOP-TD3AU4V"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "DESKTOP-JUGNII1"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
 elseif s:hostname == "laptop"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
     "set guifont=Inconsolata\ 9 
