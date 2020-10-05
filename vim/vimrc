@@ -132,6 +132,13 @@ elseif s:projectName == "brickslam"
     let s:homeDir = "~/work/github/brickslam"
     let s:ctagsDirs = "../zhost"
     let s:appToRun = "brickslam_dbg"
+elseif s:projectName == "visteon"
+    set expandtab
+    let s:homeDir = "~/work/visteon/simulator"
+    let s:ctagsDirs = ""
+    let s:appToRun = "simulator_dbg"
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=lightgrey guibg=black
 elseif s:projectName == "zpsx"
     set expandtab
     let s:homeDir = "~/work/github/zpsx"
@@ -185,7 +192,7 @@ if s:hostname == "monster"
 elseif s:hostname == "DESKTOP-TD3AU4V"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "DESKTOP-JUGNII1"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 14
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "laptop"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
     "set guifont=Inconsolata\ 9 
@@ -236,8 +243,10 @@ function! Build_f( ... )
         execute "!ctags -R " . a:2
     elseif s:projectName == "chaos_server"
         execute "!ctags -R " . a:2 . s:additionalSVNDirs
-    elseif s:projectName == "pcsx2"
-        execute "!ctags -R " . a:2 . "/" . " " . s:additionalSVNDirs
+"    elseif s:projectName == "pcsx2"
+"        execute "!ctags -R " . a:2 . "/" . " " . s:additionalSVNDirs
+    elseif s:projectName == "visteon"
+        "
     elseif s:projectName != ""
         execute "!ctags -R \"" . a:2 . "/\"" . " " . s:ctagsDirs
     else 
@@ -262,7 +271,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags} --exclude=*.{csproj,config,xml,html,mk,o.d,map} --include=*.{c,cs,cpp,h,lua}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst} --include=*.{c,cs,cpp,h,lua}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
@@ -331,47 +340,47 @@ elseif s:projectName == "bms"
     command! -nargs=0 Build call Build_f( "~/work/BMS/BMS_PIC24FJ256GA704.X", "." )
 elseif s:projectName == "bms_doors"
     command! -nargs=0 Build call Build_f( "~/work/BMSDoorPanels", "." )
-elseif 0
-    command! -nargs=0 Build call Build_f( "~/work/private", "necropolis" )
-    command! -nargs=0 Run call Run_f( "~/work/private", "necropolis", "necropolis_dbg" )
-    command! -nargs=0 Clean execute "!make -f ~/work/private/necropolis/Makefile clean"
-    command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" --exclude-dir=.svn --exclude=tags" 
-elseif 0
-    command! -nargs=0 Build call Build_f( "~/work/private", "ai_demo" )
-    command! -nargs=0 Clean execute "!make -f ~/work/private/ai_demo/Makefile clean"
-    command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" \"ai_demo\" --exclude-dir=.svn --exclude=tags" 
-    map <F5> :Run "$HOME/work/private/ai_demo/ai_demo_dbg" <CR>
+"elseif 0
+"    command! -nargs=0 Build call Build_f( "~/work/private", "necropolis" )
+"    command! -nargs=0 Run call Run_f( "~/work/private", "necropolis", "necropolis_dbg" )
+"    command! -nargs=0 Clean execute "!make -f ~/work/private/necropolis/Makefile clean"
+"    command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" --exclude-dir=.svn --exclude=tags" 
+"elseif 0
+"    command! -nargs=0 Build call Build_f( "~/work/private", "ai_demo" )
+"    command! -nargs=0 Clean execute "!make -f ~/work/private/ai_demo/Makefile clean"
+"    command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" \"ai_demo\" --exclude-dir=.svn --exclude=tags" 
+"    map <F5> :Run "$HOME/work/private/ai_demo/ai_demo_dbg" <CR>
 "elseif 1
 "   command! -nargs=0 Build call Build_f( "~/work/private", "toonfx" )
 "   command! -nargs=0 Clean execute "!make -f ~/work/private/toonfx/Makefile clean"
 "   command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" \"ai_demo\" --exclude-dir=.svn --exclude=tags" 
 "   map <F5> :Run "$HOME/work/private/toonfx/toonfx_dbg" <CR>
-elseif 0
-    command! -nargs=0 Build call Build_f( "~/work/playvpx", "." )
-    map <F5> :Run "~/work/playvpx/playvpx" <CR>
-elseif 0
-    command! -nargs=0 Build call Build_f( "~/work/ioquake3", "." )
-    map <F5> :Run "~/work/ioquake3/build/release-linux-i386/ioquake3.i386" <CR>
-elseif s:projectName == "zcom"
-    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
-        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
-                    \ "/home/stoiko/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
-                    \ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
-                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
-    elseif s:hostname == "monster"
-        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
-    endif
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
-elseif s:projectName == "zcom_rc"
-    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
-        command! -nargs=0 Build call Build_f( "/cygdrive/d/PhoenixPointUnityRC/Assets/Code",
-                    \ "/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code", 
-                    \ "PATH_TO_SCRIPT=\"/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
-                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
-    elseif s:hostname == "monster"
-        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
-    endif
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
+"elseif 0
+"    command! -nargs=0 Build call Build_f( "~/work/playvpx", "." )
+"    map <F5> :Run "~/work/playvpx/playvpx" <CR>
+"elseif 0
+"    command! -nargs=0 Build call Build_f( "~/work/ioquake3", "." )
+"    map <F5> :Run "~/work/ioquake3/build/release-linux-i386/ioquake3.i386" <CR>
+"elseif s:projectName == "zcom"
+"    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
+"        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
+"                    \ "/home/stoiko/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
+"                    \ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
+"                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
+"    elseif s:hostname == "monster"
+"        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
+"    endif
+"    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
+"elseif s:projectName == "zcom_rc"
+"    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
+"        command! -nargs=0 Build call Build_f( "/cygdrive/d/PhoenixPointUnityRC/Assets/Code",
+"                    \ "/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code", 
+"                    \ "PATH_TO_SCRIPT=\"/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
+"                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
+"    elseif s:hostname == "monster"
+"        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
+"    endif
+"    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
 elseif s:projectName == "boxify"
     if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
         command! -nargs=0 Build call Build_f( "~/work/boxify/Assets/Scripts",
@@ -382,32 +391,32 @@ elseif s:projectName == "boxify"
         command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
     endif
     command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
-elseif s:projectName == "pcsx2"
-    if s:hostname == "SNAPSHOT-STOIKO"
-        command! -nargs=0 Build call Build_f( "/tmp/pcsx2", "." )
-    else
-        command! -nargs=0 Build call Build_f( "~/work/pcsx2-master", "." )
-    endif
-elseif s:projectName == "chaos_client"
-    if s:hostname == "SNAPSHOT-STOIKO"
-        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-    elseif s:hostname == "Koko"
-        command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos_old/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
-        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosUnity5/ChaosUnity/Assets/Scripts", "." )
-        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
-    elseif s:hostname == "monster-win"
-        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-    endif
-elseif s:projectName == "chaos_server"
-    if s:hostname == "monster-win"
-        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosServer", "." )
-    else
-        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosServer", "." )
-    endif
-    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
+"elseif s:projectName == "pcsx2"
+"    if s:hostname == "SNAPSHOT-STOIKO"
+"        command! -nargs=0 Build call Build_f( "/tmp/pcsx2", "." )
+"    else
+"        command! -nargs=0 Build call Build_f( "~/work/pcsx2-master", "." )
+"    endif
+"elseif s:projectName == "chaos_client"
+"    if s:hostname == "SNAPSHOT-STOIKO"
+"        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+"    elseif s:hostname == "Koko"
+"        command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos_old/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
+"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosUnity5/ChaosUnity/Assets/Scripts", "." )
+"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
+"    elseif s:hostname == "monster-win"
+"        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+"    endif
+"elseif s:projectName == "chaos_server"
+"    if s:hostname == "monster-win"
+"        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosServer", "." )
+"    else
+"        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosServer", "." )
+"    endif
+"    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
 elseif s:projectName != ""
     command! -nargs=0 Build call Build_f( s:homeDir, "." )
     command! -nargs=0 Run call Run_f( s:homeDir, ".", s:appToRun )
