@@ -30,6 +30,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'jceb/vim-orgmode'
+Plugin 'cormacrelf/vim-colors-github'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -52,31 +53,34 @@ set cindent
 set guioptions=agit
 set hidden
 set hlsearch
-"ignore case for buffer/file names
-set wildignorecase
+set colorcolumn=81
+set errorformat&
+set ff=unix
 set ignorecase
 set incsearch
 set langmap=ч`,ю\\\\,ш[,щ],яq,вw,еe,рr,тt,ъy,уu,иi,оo,пp,аa,сs,дd,фf,гg,хh,йj,кk,лl,зz,ьx,цc,жv,бb,нn,мm,Ч~,Ю\|,Ш{,Щ},ЯQ,ВW,ЕE,РR,ТT,ЪY,УU,ИI,ОO,ПP,АA,СS,ДD,ФF,ГG,ХH,ЙJ,КK,ЛL,ЗZ,ЬX,ЦC,ЖV,БB,НN,МM
 set laststatus=2
+set linespace=3
 set mouse=
 set mousehide
-"set number
-set nonumber
+set number
+"set nonumber
+set novisualbell
+set ruler
 set shiftwidth=4
 set smartcase
-set tabstop=4
-set errorformat&
-set ruler
-set novisualbell
 set t_vb=
-set ff=unix
+set tabstop=4
+"ignore case for buffer/file names
+set wildignorecase
 
 "disable autocommenting on new line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "disable visual bell
 autocmd GUIEnter * set vb t_vb=
 "colorscheme default
-colorscheme desert
+"colorscheme desert
+colorscheme github
 "syntax off
 syntax on
 
@@ -134,11 +138,10 @@ elseif s:projectName == "brickslam"
     let s:appToRun = "brickslam_dbg"
 elseif s:projectName == "visteon"
     set expandtab
-    let s:homeDir = "~/work/visteon/simulator"
+    "let s:homeDir = "~/work/visteon/simulator"
+    let s:homeDir = "~/work/visteon/gs_redesign/fpk10_simulator/"
     let s:ctagsDirs = ""
     let s:appToRun = "simulator_dbg"
-    set colorcolumn=80
-    highlight ColorColumn ctermbg=lightgrey guibg=black
 elseif s:projectName == "zpsx"
     set expandtab
     let s:homeDir = "~/work/github/zpsx"
@@ -148,6 +151,12 @@ elseif s:projectName == "zpsx"
     set colorcolumn=+1        " highlight column after 'textwidth'
     "set colorcolumn=+1,+2,+3  " highlight three columns after 'textwidth'
     highlight ColorColumn ctermbg=lightgrey guibg=black
+elseif s:projectName == "qonche"
+    set expandtab
+    let s:homeDir = "~/work/github/qonche"
+    let s:ctagsDirs = ""
+    let s:appToRun = "qonche"
+    set colorcolumn=81        " highlight column after 'textwidth'
 elseif s:projectName == "zs"
     set expandtab
     let s:homeDir = "~/work/github/zhost_scratch"
