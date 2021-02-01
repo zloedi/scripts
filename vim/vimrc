@@ -53,7 +53,7 @@ set cindent
 set guioptions=agit
 set hidden
 set hlsearch
-set colorcolumn=81
+set colorcolumn=80
 set errorformat&
 set ff=unix
 set ignorecase
@@ -151,12 +151,23 @@ elseif s:projectName == "zpsx"
     set colorcolumn=+1        " highlight column after 'textwidth'
     "set colorcolumn=+1,+2,+3  " highlight three columns after 'textwidth'
     highlight ColorColumn ctermbg=lightgrey guibg=black
+elseif s:projectName == "vreck2d"
+    set expandtab
+    let s:homeDir = "~/work/github/vreck2d"
+    let s:ctagsDirs = ""
+    let s:appToRun = "vreck2d"
+elseif s:projectName == "celofanche"
+    set expandtab
+    let s:homeDir = "~/work/github/celofanche"
+    let s:ctagsDirs = ""
+    let s:appToRun = "celofanche"
+    set colorcolumn=80
 elseif s:projectName == "qonche"
     set expandtab
     let s:homeDir = "~/work/github/qonche"
     let s:ctagsDirs = ""
     let s:appToRun = "qonche"
-    set colorcolumn=81        " highlight column after 'textwidth'
+    set colorcolumn=80
 elseif s:projectName == "zs"
     set expandtab
     let s:homeDir = "~/work/github/zhost_scratch"
