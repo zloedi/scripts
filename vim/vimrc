@@ -136,12 +136,26 @@ elseif s:projectName == "brickslam"
     let s:homeDir = "~/work/github/brickslam"
     let s:ctagsDirs = "../zhost"
     let s:appToRun = "brickslam_dbg"
+elseif s:projectName == "visteon_sim"
+    set expandtab
+    set background=dark
+    let s:homeDir = "~/work/visteon/simulator"
+    "let s:homeDir = "~/work/visteon/gs_redesign/fpk10_simulator/"
+    let s:ctagsDirs = ""
 elseif s:projectName == "visteon"
     set expandtab
-    "let s:homeDir = "~/work/visteon/simulator"
-    let s:homeDir = "~/work/visteon/gs_redesign/fpk10_simulator/"
+    "let s:homeDir = "~/work/visteon/tools/Demos/MP22_MQBAB_IC_Basic8__CW105"
+    let s:homeDir = "~/work/visteon/tools/Demos/MP22_MQBAB_IC_Basic8__CW105/programs/vw/my2022/fpkb8/vp-apps/gs"
     let s:ctagsDirs = ""
-    let s:appToRun = "simulator_dbg"
+elseif s:projectName == "visteon_platform"
+    set expandtab
+    let s:homeDir = "~/work/visteon/platform_v8.3"
+    let s:ctagsDirs = ""
+elseif s:projectName == "visteon_demo"
+    set expandtab
+    "let s:homeDir = "~/work/visteon/MP22_FPK_Basic8"
+    let s:homeDir = "~/work/visteon/fpk8_demo"
+    let s:ctagsDirs = ""
 elseif s:projectName == "zpsx"
     set expandtab
     let s:homeDir = "~/work/github/zpsx"
@@ -265,8 +279,7 @@ function! Build_f( ... )
         execute "!ctags -R " . a:2 . s:additionalSVNDirs
 "    elseif s:projectName == "pcsx2"
 "        execute "!ctags -R " . a:2 . "/" . " " . s:additionalSVNDirs
-    elseif s:projectName == "visteon"
-        "
+    elseif s:projectName == "visteon" || s:projectName == "visteon_sim" || s:projectName == "visteon_platform" || s:projectName == "visteon_demo"
     elseif s:projectName != ""
         execute "!ctags -R \"" . a:2 . "/\"" . " " . s:ctagsDirs
     else 
@@ -291,7 +304,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst} --include=*.{c,cs,cpp,h,lua}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{c,cs,cpp,h,lua,cmake}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
