@@ -1,3 +1,3 @@
-cygstart DISPLAY=0 XWin.exe -multiwindow
-sleep( 3 )
+cygstart XWin.exe -multiwindow -listen tcp
+sleep 5
 xhost +
