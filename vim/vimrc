@@ -170,6 +170,11 @@ elseif s:projectName == "vreck2d"
     let s:homeDir = "~/work/github/vreck2d"
     let s:ctagsDirs = ""
     let s:appToRun = "vreck2d"
+elseif s:projectName == "vrexel"
+    set expandtab
+    let s:homeDir = "~/work/github/vrexel"
+    let s:ctagsDirs = ""
+    let s:appToRun = "vrexel"
 elseif s:projectName == "celofanche"
     set expandtab
     let s:homeDir = "~/work/github/celofanche"
