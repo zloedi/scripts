@@ -48,6 +48,7 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 "set nowrap
+set background=dark
 set backspace=indent,eol,start
 set cindent
 set guioptions=agit
@@ -138,7 +139,6 @@ elseif s:projectName == "brickslam"
     let s:appToRun = "brickslam_dbg"
 elseif s:projectName == "visteon_sim"
     set expandtab
-    set background=dark
     let s:homeDir = "~/work/visteon/simulator"
     "let s:homeDir = "~/work/visteon/gs_redesign/fpk10_simulator/"
     let s:ctagsDirs = ""
@@ -228,6 +228,8 @@ if s:hostname == "monster"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
     "set guifont=Droid\ Sans\ Mono\ 9
     "set guifont=Inconsolata\ 8 
+elseif s:hostname == "acer-laptop"
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 13
 elseif s:hostname == "DESKTOP-TD3AU4V"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "DESKTOP-JUGNII1"
