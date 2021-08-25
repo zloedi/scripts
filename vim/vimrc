@@ -435,19 +435,12 @@ elseif s:projectName == "boxify"
 "    else
 "        command! -nargs=0 Build call Build_f( "~/work/pcsx2-master", "." )
 "    endif
-"elseif s:projectName == "chaos_client"
-"    if s:hostname == "SNAPSHOT-STOIKO"
-"        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-"    elseif s:hostname == "Koko"
-"        command! -nargs=0 Build call Build_f( "/cygdrive/d/chaos_old/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
-"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/branches/ChaosUnity5/ChaosUnity/Assets/Scripts", "." )
-"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-"        "command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos_build/branches/ChaosRebornRC/ChaosUnity/Assets/Scripts", "." )
-"    elseif s:hostname == "monster-win"
-"        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-"    endif
+elseif s:projectName == "chaos_client"
+    if s:hostname == "SNAPSHOT-STOIKO"
+        command! -nargs=0 Build call Build_f( "/cygdrive/c/gallium/ChaosUnity/Assets/Scripts", "." )
+    elseif s:hostname == "monster-win"
+        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
+    endif
 "elseif s:projectName == "chaos_server"
 "    if s:hostname == "monster-win"
 "        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosServer", "." )
