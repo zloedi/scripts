@@ -181,6 +181,11 @@ elseif s:projectName == "celofanche"
     let s:ctagsDirs = ""
     let s:appToRun = "celofanche"
     set colorcolumn=80
+elseif s:projectName == "raypunk"
+    set expandtab
+    let s:homeDir = "~/work/github/raypunk/Code"
+    let s:ctagsDirs = ""
+    let s:appToRun = "raypunk"
 elseif s:projectName == "qonche"
     set expandtab
     let s:homeDir = "~/work/github/qonche"
@@ -229,7 +234,7 @@ if s:hostname == "monster"
     "set guifont=Droid\ Sans\ Mono\ 9
     "set guifont=Inconsolata\ 8 
 elseif s:hostname == "acer-laptop"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 13
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 17
 elseif s:hostname == "DESKTOP-TD3AU4V"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "DESKTOP-JUGNII1"
