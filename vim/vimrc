@@ -209,6 +209,7 @@ elseif s:projectName == "boxify"
     "let s:ctagsDirs = "."
     let s:additionalSVNDirs = ""
 elseif s:projectName == "chaos_client" 
+    set colorcolumn=100
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     " use quotes
