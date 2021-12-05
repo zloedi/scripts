@@ -183,6 +183,8 @@ elseif s:projectName == "celofanche"
     set colorcolumn=80
 elseif s:projectName == "raypunk"
     set expandtab
+    set errorformat=\ %#%f(%l\\,%c):\ %m
+    set colorcolumn=100
     let s:homeDir = "~/work/github/raypunk/Code"
     let s:ctagsDirs = ""
     let s:appToRun = "raypunk"
@@ -235,9 +237,10 @@ if s:hostname == "monster"
     "set guifont=Droid\ Sans\ Mono\ 9
     "set guifont=Inconsolata\ 8 
 elseif s:hostname == "acer-laptop"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 17
+    set guifont=Space\ Mono\ for\ Powerline\ 14
 elseif s:hostname == "DESKTOP-TD3AU4V"
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
+    "set guifont=Space\ Mono\ for\ Powerline\ 14
+    set guifont=Space\ Mono\ for\ Powerline\ 14
 elseif s:hostname == "DESKTOP-JUGNII1"
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 elseif s:hostname == "laptop"
