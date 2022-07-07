@@ -29,8 +29,10 @@ Plugin 'tpope/vim-fugitive'
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'jceb/vim-orgmode'
+" Plugin 'jceb/vim-orgmode'
 Plugin 'cormacrelf/vim-colors-github'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -181,6 +183,12 @@ elseif s:projectName == "celofanche"
     let s:ctagsDirs = ""
     let s:appToRun = "celofanche"
     set colorcolumn=80
+elseif s:projectName == "turmoil"
+    set expandtab
+    set errorformat=\ %#%f(%l\\,%c):\ %m
+    set colorcolumn=100
+    let s:homeDir = "~/work/github/turmoil/Code"
+    let s:ctagsDirs = ""
 elseif s:projectName == "raypunk"
     set expandtab
     set errorformat=\ %#%f(%l\\,%c):\ %m
@@ -217,10 +225,22 @@ elseif s:projectName == "chaos_client"
     " use quotes
     let s:additionalSVNDirs = "\"../Scenes\" \"../Resources_Raw\" \"../Resources\""
 elseif s:projectName == "chaos_server"
+    set colorcolumn=100
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
-    let s:additionalSVNDirs = " \"../ChaosUnity/Assets/Scripts\" \
-                            \"../ChaosUnity/Assets/Editor/Build\" "
+    let s:additionalSVNDirs =  " \"../ChaosUnity/Assets/Scripts/ServerAndClient\" \"../ChaosUnity/Assets/Editor/Build\" "
+elseif s:projectName == "gallium_github"
+    set expandtab
+    set colorcolumn=100
+    set errorformat=\ %#%f(%l\\\,%c):\ %m
+    let s:additionalSVNDirs = ""
+    let s:homeDir = "/cygdrive/c/gallium_github/Game"
+	let s:appToRun = "../Build/Gallium"
+elseif s:projectName == "alt_server"
+    set expandtab
+    set colorcolumn=100
+    set errorformat=\ %#%f(%l\\\,%c):\ %m
+    let s:additionalSVNDirs = ""
 else
     let s:additionalSVNDirs = ""
     set expandtab
@@ -291,7 +311,7 @@ function! Build_f( ... )
 
     if s:projectName == "chaos_client"
         execute "!ctags -R " . a:2
-    elseif s:projectName == "chaos_server"
+    elseif s:projectName == "chaos_server" || s:projectName == "alt_server" || s:projectName == "gallium_github"
         execute "!ctags -R " . a:2 . s:additionalSVNDirs
 "    elseif s:projectName == "pcsx2"
 "        execute "!ctags -R " . a:2 . "/" . " " . s:additionalSVNDirs
@@ -447,18 +467,17 @@ elseif s:projectName == "boxify"
 "        command! -nargs=0 Build call Build_f( "~/work/pcsx2-master", "." )
 "    endif
 elseif s:projectName == "chaos_client"
-    if s:hostname == "SNAPSHOT-STOIKO"
-        command! -nargs=0 Build call Build_f( "/cygdrive/c/gallium/ChaosUnity/Assets/Scripts", "." )
-    elseif s:hostname == "monster-win"
-        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosUnity/Assets/Scripts", "." )
-    endif
-"elseif s:projectName == "chaos_server"
-"    if s:hostname == "monster-win"
-"        command! -nargs=0 Build call Build_f( "/cygdrive/c/chaos/trunk/ChaosReborn/ChaosServer", "." )
-"    else
-"        command! -nargs=0 Build call Build_f( "/cygdrive/e/chaos/trunk/ChaosReborn/ChaosServer", "." )
-"    endif
-"    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
+    command! -nargs=0 Build call Build_f( "/cygdrive/c/gallium/ChaosUnity/Assets/Scripts", "." )
+elseif s:projectName == "chaos_server"
+    command! -nargs=0 Build call Build_f( "/cygdrive/c/gallium/ChaosServer", "." )
+	command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalSVNDirs )
+elseif s:projectName == "alt_server"
+    command! -nargs=0 Build call Build_f( "/cygdrive/c/gallium_clean/Server", "." )
+	command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalSVNDirs )
+elseif s:projectName == "gallium_github"
+    command! -nargs=0 Build call Build_f( "/cygdrive/c/gallium_github/Game", "." )
+	command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalSVNDirs )
+    command! -nargs=0 Run call Run_f( s:homeDir, ".", s:appToRun )
 elseif s:projectName != ""
     command! -nargs=0 Build call Build_f( s:homeDir, "." )
     command! -nargs=0 Run call Run_f( s:homeDir, ".", s:appToRun )
