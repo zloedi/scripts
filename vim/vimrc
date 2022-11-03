@@ -31,8 +31,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'jceb/vim-orgmode'
 Plugin 'cormacrelf/vim-colors-github'
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'junegunn/fzf.vim'
+" Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -222,6 +222,20 @@ elseif s:projectName == "chaos_server"
     set noexpandtab
     set errorformat=\ %#%f(%l\\\,%c):\ %m
     let s:additionalSVNDirs =  " \"../ChaosUnity/Assets/Scripts/ServerAndClient\" \"../ChaosUnity/Assets/Editor/Build\" "
+elseif s:projectName == "kronos"
+    set expandtab
+    set colorcolumn=100
+    set errorformat=\ %#%f(%l\\,%c):\ %m
+    let s:homeDir = "/cygdrive/c/kronos/kronos_unity/Assets/Script"
+    let s:ctagsDirs = " \"../AssemblyDefinitions\" \"../../Rulebase\" "
+    "let s:ctagsDirs = " \"../AssemblyDefinitions\" \"../../Rulebase\" \"../AssemblyDefinitions/SharedLibrary/Zloedi\" "
+elseif s:projectName == "krius"
+    set expandtab
+    set colorcolumn=100
+    set errorformat=\ %#%f(%l\\,%c):\ %m
+    let s:homeDir = "/cygdrive/c/kronos/krius/code"
+    let s:ctagsDirs = ""
+    let s:appToRun = "../build/Game"
 elseif s:projectName == "raypunk"
     set expandtab
     set colorcolumn=100
@@ -409,47 +423,6 @@ elseif s:projectName == "bms"
     command! -nargs=0 Build call Build_f( "~/work/BMS/BMS_PIC24FJ256GA704.X", "." )
 elseif s:projectName == "bms_doors"
     command! -nargs=0 Build call Build_f( "~/work/BMSDoorPanels", "." )
-"elseif 0
-"    command! -nargs=0 Build call Build_f( "~/work/private", "necropolis" )
-"    command! -nargs=0 Run call Run_f( "~/work/private", "necropolis", "necropolis_dbg" )
-"    command! -nargs=0 Clean execute "!make -f ~/work/private/necropolis/Makefile clean"
-"    command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" --exclude-dir=.svn --exclude=tags" 
-"elseif 0
-"    command! -nargs=0 Build call Build_f( "~/work/private", "ai_demo" )
-"    command! -nargs=0 Clean execute "!make -f ~/work/private/ai_demo/Makefile clean"
-"    command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" \"ai_demo\" --exclude-dir=.svn --exclude=tags" 
-"    map <F5> :Run "$HOME/work/private/ai_demo/ai_demo_dbg" <CR>
-"elseif 1
-"   command! -nargs=0 Build call Build_f( "~/work/private", "toonfx" )
-"   command! -nargs=0 Clean execute "!make -f ~/work/private/toonfx/Makefile clean"
-"   command! -nargs=+ FindInFiles execute "grep -riIF -e \"" . <q-args> . "\" \"necropolis\" \"engine\" \"ai_demo\" --exclude-dir=.svn --exclude=tags" 
-"   map <F5> :Run "$HOME/work/private/toonfx/toonfx_dbg" <CR>
-"elseif 0
-"    command! -nargs=0 Build call Build_f( "~/work/playvpx", "." )
-"    map <F5> :Run "~/work/playvpx/playvpx" <CR>
-"elseif 0
-"    command! -nargs=0 Build call Build_f( "~/work/ioquake3", "." )
-"    map <F5> :Run "~/work/ioquake3/build/release-linux-i386/ioquake3.i386" <CR>
-"elseif s:projectName == "zcom"
-"    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
-"        command! -nargs=0 Build call Build_f( "~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code",
-"                    \ "/home/stoiko/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code", 
-"                    \ "PATH_TO_SCRIPT=\"~/work/snapshot/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
-"                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
-"    elseif s:hostname == "monster"
-"        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
-"    endif
-"    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
-"elseif s:projectName == "zcom_rc"
-"    if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
-"        command! -nargs=0 Build call Build_f( "/cygdrive/d/PhoenixPointUnityRC/Assets/Code",
-"                    \ "/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code", 
-"                    \ "PATH_TO_SCRIPT=\"/cygdrive/d/PhoenixPointUnityRC/Assets/Users/Stoiko/code/cygwin_compile.sh\"",
-"                    \ "PATH_TO_MSBUILD=\"/cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe\"")
-"    elseif s:hostname == "monster"
-"        command! -nargs=0 Build call Build_f( "/home/stoiko/work/chaos/trunk/PhoenixPoint/Unity/PhoenixPointUnity/Assets/Code", "." )
-"    endif
-"    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args> )
 elseif s:projectName == "boxify"
     if s:hostname == "monster-win" || s:hostname == "SNAPSHOT-STOIKO"
         command! -nargs=0 Build call Build_f( "~/work/boxify/Assets/Scripts",
