@@ -227,15 +227,14 @@ elseif s:projectName == "kronos"
     set colorcolumn=100
     set errorformat=\ %#%f(%l\\,%c):\ %m
     let s:homeDir = "/cygdrive/c/kronos/kronos_unity/Assets/Script"
-    let s:ctagsDirs = " \"../AssemblyDefinitions\" \"../../Rulebase\" "
-    "let s:ctagsDirs = " \"../AssemblyDefinitions\" \"../../Rulebase\" \"../AssemblyDefinitions/SharedLibrary/Zloedi\" "
-elseif s:projectName == "krius"
+    let s:ctagsDirs = " \"../AssemblyDefinitions\" \"../../Rulebase\" \"../InControl\" \"../ThirdParty/I2/Localization/Scripts\" \"../Editor\" \"../StreamingAssets\" "
+elseif s:projectName == "wurst"
     set expandtab
     set colorcolumn=100
     set errorformat=\ %#%f(%l\\,%c):\ %m
-    let s:homeDir = "/cygdrive/c/kronos/krius/code"
+    let s:homeDir = "~/work/github/wurst/code"
     let s:ctagsDirs = ""
-    let s:appToRun = "../build/Game"
+    let s:appToRun = "../build/Wurst"
 elseif s:projectName == "raypunk"
     set expandtab
     set colorcolumn=100
@@ -354,7 +353,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{c,cs,cpp,h,lua,cmake}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{c,cs,cpp,h,lua,cmake,csv}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
