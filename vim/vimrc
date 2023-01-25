@@ -226,8 +226,9 @@ elseif s:projectName == "kronos"
     set expandtab
     set colorcolumn=100
     set errorformat=\ %#%f(%l\\,%c):\ %m
-    let s:homeDir = "/cygdrive/c/kronos/kronos_unity/Assets/Script"
-    let s:ctagsDirs = " \"../AssemblyDefinitions\" \"../../Rulebase\" \"../InControl\" \"../ThirdParty/I2/Localization/Scripts\" \"../Editor\" \"../StreamingAssets\" "
+    let s:homeDir = "/cygdrive/c/kronos/KronosUnity/Assets/Script"
+    let s:ctagsDirs = " \"../AssemblyDefinitions\" \"../../Rulebase\" \"../SGLibs\" \"../ThirdParty/AsmodeeNet\" \"../ThirdParty/ZloediUtils\" \"../ThirdParty/InControl\" \"../ThirdParty/I2/Localization/Scripts\" \"../Editor\" \"../StreamingAssets\" "
+    let s:additionalSVNDirs = s:ctagsDirs
 elseif s:projectName == "wurst"
     set expandtab
     set colorcolumn=100
@@ -240,7 +241,7 @@ elseif s:projectName == "raypunk"
     set colorcolumn=100
     set errorformat=\ %#%f(%l\\,%c):\ %m
     let s:homeDir = "~/work/github/raypunk/Code"
-    let s:ctagsDirs = ""
+    let s:ctagsDirs = "../Build/raypunk"
     let s:appToRun = "../Build/Game"
 elseif s:projectName == "gallium_github"
     set expandtab
@@ -353,7 +354,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{c,cs,cpp,h,lua,cmake,csv}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{cfg,lvl,c,cs,cpp,h,lua,cmake,csv}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
@@ -459,7 +460,9 @@ else
 endif
 
 command! -nargs=0 SVNdiffoff        execute "bd /tmp/" . expand("%:t") | diffoff!
-command! -nargs=0 SVNdiff           diffoff! | execute "!/bin/svn export --force \"%\" /tmp/%:t -r COMMITTED" | vert diffsplit /tmp/%:t | wincmd x | goto
+command! -nargs=0 SVNdiff           diffoff! | execute "!/bin/svn export --force \"%\" /tmp/%:t -r COMMITTED" | vert diffsplit /tmp/%:t | goto
+command! -nargs=0 SVNprevX          diffoff! | execute "!/bin/svn export --force \"%\" /tmp/%:t -r PREV" | vert diffsplit /tmp/%:t | goto
+command! -nargs=0 SVNdiffX          diffoff! | execute "!/bin/svn export --force \"%\" /tmp/%:t -r COMMITTED" | vert diffsplit /tmp/%:t | wincmd x | goto
 command! -nargs=0 SVNprev           diffoff! | execute "!/bin/svn export --force \"%\" /tmp/%:t -r PREV" | vert diffsplit /tmp/%:t | wincmd x | goto
 command! -nargs=0 SVNstatus         e /tmp/SVNstatus_vim | bd /tmp/SVNstatus_vim | execute "!/bin/svn status $(ls) " . s:additionalSVNDirs . " | sort | grep -ve ^[?I] -ve \.mat > /tmp/SVNstatus_vim" | 10split | e /tmp/SVNstatus_vim | wincmd w
 command! -nargs=0 SVNstatusx        e /tmp/SVNstatus_vim | bd /tmp/SVNstatus_vim | execute "!/bin/svn status $(ls) " . s:additionalSVNDirs . " | sort | grep -ve ^[?I] -ve \.mat > /tmp/SVNstatus_vim" | 10split | e /tmp/SVNstatus_vim | wincmd w
