@@ -50,6 +50,8 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 "set nowrap
+set nofoldenable
+autocmd WinEnter,WinLeave,BufCreate,BufEnter,BufLeave,BufNew * set nofoldenable
 set background=dark
 set backspace=indent,eol,start
 set cindent
@@ -195,6 +197,12 @@ elseif s:projectName == "qonche"
     let s:ctagsDirs = ""
     let s:appToRun = "qonche"
     set colorcolumn=80
+elseif s:projectName == "ps2host"
+    set expandtab
+    let s:homeDir = "~/work/github/ps2hacking/ps2host"
+    let s:ctagsDirs = ""
+    let s:appToRun = "ps2host"
+    set colorcolumn=80
 elseif s:projectName == "zs"
     set expandtab
     let s:homeDir = "~/work/github/zhost_scratch"
@@ -233,9 +241,16 @@ elseif s:projectName == "wurst"
     set expandtab
     set colorcolumn=100
     set errorformat=\ %#%f(%l\\,%c):\ %m
-    let s:homeDir = "~/work/github/wurst/code"
+    let s:homeDir = "~/work/github/wurst/Code"
     let s:ctagsDirs = ""
-    let s:appToRun = "../build/Wurst"
+    let s:appToRun = "../Build/Wurst"
+elseif s:projectName == "viking"
+    set expandtab
+    set colorcolumn=100
+    set errorformat=\ %#%f(%l\\,%c):\ %m
+    let s:homeDir = "~/work/github/VikingVillage/Code"
+    let s:ctagsDirs = ""
+    let s:appToRun = "../Build/VikingVillage"
 elseif s:projectName == "SDLApp"
     set expandtab
     set colorcolumn=100
@@ -369,7 +384,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{Makefile,tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{cfg,lvl,c,cs,cpp,h,lua,cmake,csv}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{cfg,lvl,c,cs,cpp,h,lua,cmake,csv}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
