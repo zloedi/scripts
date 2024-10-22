@@ -271,7 +271,10 @@ elseif s:projectName == "dmd"
     let s:ctagsDirs = " \
 \"../../../Scripts\" \
 \"../../../Tests\" \
-\"../../../Editor\" "
+\"../../../Editor\" \
+\"../../../../Library/PackageCache/com.claw.app@fc29704bc0\" \
+\"../../../../Library/PackageCache/com.claw.core@4843ff365e\" \
+\"../../../../Library/PackageCache/com.claw.user.interface@d6aa421b64\" "
     let s:appToRun = "../Build/dmd"
 elseif s:projectName == "qronos"
     set expandtab
@@ -437,7 +440,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -riIFe \""
-    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{cfg,lvl,c,cs,cpp,h,lua,cmake,csv}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{cfg,lvl,c,cs,md,cpp,h,lua,cmake,csv}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
