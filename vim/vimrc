@@ -377,7 +377,7 @@ elseif s:hostname == "monster-win"
     "set guifont=Inconsolata\ Medium\ 11
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 else
-    set guifont=Droid\ Sans\ Mono\ 9
+    set guifont=Space\ Mono\ for\ Powerline\ 11
 endif
 
 function! CTags_f( ... )
