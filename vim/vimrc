@@ -1,3 +1,5 @@
+set grepprg=grep
+
 set nofixeol
 set nofixendofline
 set nocompatible              " be iMproved, required
@@ -87,6 +89,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd GUIEnter * set vb t_vb=
 "colorscheme default
 "colorscheme desert
+colorscheme github
 if &term=~'linux'
 " This is the console on linux. I don't know for FreeBSD
 " set your console settings here.
@@ -111,7 +114,9 @@ let s:haveReadSession = 0
 "let s:user = "ivaila"
 "let s:user = "stoiko"
 
-let s:projectName = $ZPROJ
+"let s:projectName = $ZPROJ
+let s:projectName = "dmd"
+let s:isWindows = 1
 
 if s:projectName == "zhost"
     set expandtab
@@ -274,7 +279,7 @@ elseif s:projectName == "dmd"
     set expandtab
     set colorcolumn=100
     set errorformat=\ %#%f(%l\\,%c):\ %m
-    let s:homeDir = "/cygdrive/c/dmd/DeathMustDie/Assets/Editor/Zloedi/.assembly_src"
+    let s:homeDir = "/dmd_win/DeathMustDie/Assets/Editor/Zloedi/.assembly_src"
     let s:ctagsDirs = " \
 \"../../../Scripts\" \
 \"../../../Tests\" \
@@ -384,7 +389,7 @@ elseif s:hostname == "monster-win"
     "set guifont=Inconsolata\ Medium\ 11
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 else
-    set guifont=Space\ Mono\ for\ Powerline\ 11
+    set guifont=Source_Code_Pro:11:cANSI:qDRAFT
 endif
 
 function! CTags_f( ... )
@@ -393,10 +398,6 @@ function! CTags_f( ... )
 endfunction
 
 function! Build_f( ... )
-    if ! s:isWindows
-        execute "!killall xterm" 
-    endif
-
     wall
 
     execute "cd " . a:1
@@ -407,6 +408,8 @@ function! Build_f( ... )
 
     if s:projectName == "bms_doors" || s:projectName == "bms"
         execute "make -f " . a:2 . "/cygwin/Makefile-cygwin"
+    elseif s:projectName == "dmd"
+        execute "make -f " . a:2 . "/Makefile_mingw "
     elseif a:0 == 2
         execute "make -f " . a:2 . "/Makefile "
     elseif a:0 == 3
@@ -446,7 +449,7 @@ function! Run_f( ... )
 endfunction
 
 function! FindInFiles_f( ... )
-    let cmdPref = "grep -riIFe \""
+    let cmdPref = "grep -nriIe \""
     let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{cfg,lvl,c,cs,md,cpp,h,lua,cmake,csv}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
