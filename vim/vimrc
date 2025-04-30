@@ -389,7 +389,7 @@ elseif s:hostname == "monster-win"
     "set guifont=Inconsolata\ Medium\ 11
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 else
-    set guifont=Source_Code_Pro:11:cANSI:qDRAFT
+    set guifont=Source_Code_Pro:h11:cANSI:qDRAFT
 endif
 
 function! CTags_f( ... )
