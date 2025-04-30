@@ -54,7 +54,7 @@ filetype plugin indent on    " required
 "set nowrap
 set nofoldenable
 autocmd WinEnter,WinLeave,BufCreate,BufEnter,BufLeave,BufNew * set nofoldenable
-set background=dark
+set background=light
 set backspace=indent,eol,start
 set cindent
 set guioptions=agit
@@ -263,6 +263,13 @@ elseif s:projectName == "radical_rumble"
     let s:homeDir = "~/work/github/radical_rumble/Code"
     let s:ctagsDirs = ""
     let s:appToRun = "../BuildSDL/game_sdl"
+elseif s:projectName == "csharp_sdl"
+    set expandtab
+    set colorcolumn=100
+    set errorformat=\ %#%f(%l\\,%c):\ %m
+    let s:homeDir = "~/work/github/csharp_sdl_skeleton/Code"
+    let s:ctagsDirs = ""
+    let s:appToRun = "../BuildSDL/game_sdl"
 elseif s:projectName == "dmd"
     set expandtab
     set colorcolumn=100
@@ -273,7 +280,7 @@ elseif s:projectName == "dmd"
 \"../../../Tests\" \
 \"../../../Editor\" \
 \"../../../../Library/PackageCache/com.claw.app@fc29704bc0\" \
-\"../../../../Library/PackageCache/com.claw.core@4843ff365e\" \
+\"../../../../Library/PackageCache/com.claw.core@48b048b9b5\" \
 \"../../../../Library/PackageCache/com.claw.user.interface@d6aa421b64\" "
     let s:appToRun = "../Build/dmd"
 elseif s:projectName == "qronos"
