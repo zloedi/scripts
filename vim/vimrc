@@ -287,7 +287,7 @@ elseif s:projectName == "dmd"
 \"../../../../Library/PackageCache/com.claw.app@fc29704bc0\" \
 \"../../../../Library/PackageCache/com.claw.core@48b048b9b5\" \
 \"../../../../Library/PackageCache/com.claw.user.interface@d6aa421b64\" "
-    let s:appToRun = "../Build/dmd"
+    let s:appToRun = "Build\\binaries\\Death\ Must\ Die"
 elseif s:projectName == "qronos"
     set expandtab
     set colorcolumn=100
@@ -436,16 +436,8 @@ function! Build_f( ... )
 endfunction
 
 function! Run_f( ... )
-    call Build_f( a:1, a:2, a:3 )
-
-    let pathToExe = a:1 . "/" . a:2 . "/" . a:3
-
-    if s:isWindows
-        execute "!" . pathToExe . ".exe&"
-    else
-        execute "!killall xterm ; xterm -e \"" . pathToExe . "\"&"
-    endif
-
+    let pathToExe = a:1 . "\\" . a:2 . "\\" . a:3
+    execute "!start /b \"" . pathToExe . ".exe\""
 endfunction
 
 function! FindInFiles_f( ... )
@@ -547,6 +539,8 @@ elseif s:projectName == "gallium_github"
     command! -nargs=0 Build call Build_f( "/cygdrive/c/gallium_github/Game", "." )
 	command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalSVNDirs )
     command! -nargs=0 Run call Run_f( s:homeDir, ".", s:appToRun )
+elseif s:projectName == "dmd"
+    command! -nargs=0 Run call Run_f( "c:", "dmd_mint", s:appToRun )
 elseif s:projectName != ""
     command! -nargs=0 Build call Build_f( s:homeDir, "." )
     command! -nargs=0 CTags call CTags_f( s:homeDir, "." )
