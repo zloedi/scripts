@@ -363,7 +363,7 @@ if s:hostname == "monster"
     "set guifont=Droid\ Sans\ Mono\ 9
     "set guifont=Inconsolata\ 8 
 elseif s:hostname == "acer-laptop"
-    set guifont=Space\ Mono\ for\ Powerline\ 14
+    set guifont=Source_Code_Pro:h14:cANSI:qDRAFT
 elseif s:hostname == "DESKTOP-TD3AU4V"
     "set guifont=Space\ Mono\ for\ Powerline\ 14
     set guifont=Space\ Mono\ for\ Powerline\ 14
@@ -540,7 +540,10 @@ elseif s:projectName == "gallium_github"
 	command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:additionalSVNDirs )
     command! -nargs=0 Run call Run_f( s:homeDir, ".", s:appToRun )
 elseif s:projectName == "dmd"
+    command! -nargs=0 Build call Build_f( s:homeDir, "." )
+    command! -nargs=0 CTags call CTags_f( s:homeDir, "." )
     command! -nargs=0 Run call Run_f( "c:", "dmd_mint", s:appToRun )
+    command! -nargs=+ FindInFiles call FindInFiles_f( <q-args>, ".", s:ctagsDirs )
 elseif s:projectName != ""
     command! -nargs=0 Build call Build_f( s:homeDir, "." )
     command! -nargs=0 CTags call CTags_f( s:homeDir, "." )
