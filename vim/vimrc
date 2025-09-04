@@ -371,6 +371,12 @@ elseif g:hostname == "acer-laptop"
     else
         set guifont=Space\ Mono\ for\ Powerline\ 14
     endif
+elseif g:hostname == "Zammy-Gaming" 
+    if g:osname == "Msys"
+        set guifont=Source_Code_Pro:h11:cANSI:qDRAFT
+    else
+        set guifont=Space_Mono_for_Powerline:h11
+    endif
 elseif g:hostname == "DESKTOP-TD3AU4V"
     "set guifont=Space\ Mono\ for\ Powerline\ 14
     set guifont=Space\ Mono\ for\ Powerline\ 14
