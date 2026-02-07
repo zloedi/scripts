@@ -300,6 +300,7 @@ elseif g:projectName == "dmd"
 \"../../../Scripts\" \
 \"../../../Tests\" \
 \"../../../Editor\" \
+\"../../../Content/Entities/Characters\" \
 \"../../../../Library/PackageCache/com.claw.app@fc29704bc0\" \
 \"../../../../Library/PackageCache/com.claw.core@48b048b9b5\" \
 \"../../../../Library/PackageCache/com.claw.user.interface@d6aa421b64\" "
@@ -490,7 +491,7 @@ endfunction
 
 function! FindInFiles_f( ... )
     let cmdPref = "grep -nriIe \""
-    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt} --include=*.{cfg,lvl,c,cs,md,cpp,h,lua,asm,cmake,csv}" 
+    let cmdSuf = " --exclude-dir=*{.git,.svn,doxygen} --exclude=*{tags,vim_session*} --exclude=*.{csproj,config,xml,html,mk,o,d,map,tst,txt,controller} --include=*.{anim,cfg,lvl,c,cs,md,cpp,h,lua,asm,cmake,csv}" 
     if a:0 == 1 
         execute cmdPref . a:1 . "\" . " . s:ctagsDirs . cmdSuf
     elseif a:0 == 2 
